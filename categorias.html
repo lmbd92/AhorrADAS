@@ -54,7 +54,7 @@
         </div>
       </nav>
     </header>
-    <section class="section" id="section_categorias">
+    <section class="section" id="sectionCategorias">
       <div class="container is-8-widescreen is-10-desktop">
           <div class="box" id="categorias_box">
             <div class="column vcentered">
@@ -73,8 +73,39 @@
                 </div>
               </div>
             </div>
-            <ul id="listCategories"></ul>
+            <div class="columns">
+              <div class="column">
+                <ul id="listCategories"></ul>
+              </div>
+            </div>
+            
           </div>
+        </div>
+      </div>
+    </section>
+    <!--Modal Edit Category-->
+      <section class="section is-hidden" id="sectionEditCategory">
+        <div class="container is-8-widescreen is-10-desktop">
+          <div class="box" id="editCategoryBox">
+            <div class="column vcentered">
+              <h2 class="is-size-4 has-text-weight-bold">Editar categoria</h2>
+            </div>
+            <div class="field">
+              <label class="label mt-6" for="editCategoryForm">Nombre</label>
+              <div class="field is-grouped">
+                <div class="control is-expanded">
+                  <input class="input" type="text" name="" id="editCategoryForm" />
+                </div>
+                <div class="control in-line">
+                  <button type="submit" class="button is-light" id="btnCancelEditCat">
+                    Cancelar
+                  </button>
+                  <button type="submit" class="button is-success" id="btnSubmitEditCat">
+                    Editar
+                  </button>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
     </section>

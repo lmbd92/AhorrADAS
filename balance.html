@@ -31,11 +31,19 @@
           <div
             class="navbar-burger burger"
             aria-label="menu"
-            aria-expanded="false"
+            aria-expanded="false" id="burger" onclick="toggleBurger()"
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
+          </div>
+          <!--Burger menu options-->
+          <div id="teamList" class="navbar-menu">
+            <div class="navbar-dropdown">
+              <a class="navbar-item " href="./balance.html">Balance</a>
+               <a class="navbar-item " href="./categorias.html">Categorías</a>
+                <a class="navbar-item " href="./reportes.html">Reportes</a>
+            </div>
           </div>
         </div>
         <div class="navbar-menu">
@@ -130,16 +138,10 @@
             </div>
             <!---->
             <div class="field">
-              <label class="label" for="filtro_cat">Categoría</label>
+              <label class="label" for="selectCategories">Categoría</label>
               <div class="select is-normal is-fullwidth">
-                <select id="filtro_cat">
-                  <option value="todas">Todas</option>
-                  <option value="comidas">Comidas</option>
-                  <option value="servicios">Servicios</option>
-                  <option value="salidas">Salidas</option>
-                  <option value="educacion">Educacion</option>
-                  <option value="transporte">Transporte</option>
-                  <option value="trabajo">Trabajo</option>
+                <select id="selectCategories">
+                  <option value="todas" selected>TODAS</option>
                 </select>
               </div>
             </div>
@@ -189,7 +191,6 @@
       </div>
     </section>
     <!--Modal Nueva operación-->
-    <section class="section">
       <section class="section is-hidden" id="section_nueva_operacion">
         <div class="box is-multiline is-8-widescreen is-10-desktop">
             <div class="columns">
