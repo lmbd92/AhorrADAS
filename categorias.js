@@ -1,10 +1,10 @@
 const $ = (selector) => document.querySelector(selector);
-const datos = getStorage();
+const data = getStorage();
 
 const loadCategories = () => {
-  const { categorias } = getStorage();
+  const { categories } = getStorage();
   let listCategories = document.getElementById("listCategories");
-  for (const category of categorias) {
+  for (const category of categories) {
     let boxCategory = document.createElement("div");
     let elementBox = document.createElement("div");
     let element = document.createElement("li");
@@ -17,11 +17,11 @@ const loadCategories = () => {
     element.setAttribute("class", "tag is-primary is-light m-2 is-medium");
     BtnsBox.setAttribute("class", "column in-line has-text-right");
     btnEdit.setAttribute("class", "button is-warning m-2");
-        btnEdit.setAttribute("id", "btnEditCategory");
+    btnEdit.setAttribute("id", "btnEditCategory");
     btnRemove.setAttribute("class", "button is-danger m-2");
-        btnRemove.setAttribute("id", "btnRemoveCategory");
+    btnRemove.setAttribute("id", "btnRemoveCategory");
 
-    element.innerText = category;
+    element.innerText = category.name;
     element.style.textTransform = "uppercase";
     btnEdit.innerText = "Editar";
     btnRemove.innerText = "Eliminar";
@@ -35,37 +35,41 @@ const loadCategories = () => {
   }
 };
 loadCategories();
+updateData(data);
 
 const createCategories = () => {
   const newCategoryName = slugify($("#new-categoria-input").value);
-  if (datos.categorias.find((d) => d === newCategoryName)) {
+  if (data.categories.find((d) => d === newCategoryName)) {
+    //swalCatDuplicate();
     alert("Categoria ya existe");
     $("#new-categoria-input").value = "";
+  } else if (newCategoryName === "") {
+    alert("Por favor ingrese un nombre de categoria");
+    $("#new-categoria-input").value = "";
   } else {
-    datos.categorias.push(newCategoryName);
-    localStorage.setItem("datos", JSON.stringify(datos));
-        $("#new-categoria-input").value = "";
+    data.categories.push(setFormat(newCategoryName));
+    updateData(data);
+    $("#new-categoria-input").value = "";
   }
+  console.log("afterCreateNewCategory ", data.categories);
 };
 $("#new-categoria-btn").addEventListener("click", createCategories);
 
-/*EDITAR CATEGORIAS*/
+/*EDITAR categories*/
 
 $("#btnEditCategory").addEventListener("click", () => {
-   $("#sectionEditCategory").classList.remove("is-hidden");
-  $("#sectionCategorias").classList.add("is-hidden");
+  $("#sectionEditCategory").classList.remove("is-hidden");
+  $("#sectioncategories").classList.add("is-hidden");
 });
 $("#btnCancelEditCat").addEventListener("click", () => {
-   $("#sectionEditCategory").classList.add("is-hidden");
-  $("#sectionCategorias").classList.remove("is-hidden");
+  $("#sectionEditCategory").classList.add("is-hidden");
+  $("#sectioncategories").classList.remove("is-hidden");
 });
 
-// const editCategory = (categoriaNueva, categorias) => {
-//   return categorias.map((categoria) =>
+// const editCategory = (categoriaNueva, categories) => {
+//   return categories.map((categoria) =>
 //     categoriaNueva === categoria
 //       ? { ...categoria, ...categoriaNueva }
 //       : categoria
 //   )
 // }
-
-
