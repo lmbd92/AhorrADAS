@@ -27,18 +27,30 @@ const updateData = (data) => {
   localStorage.setItem("data", JSON.stringify(data));
 };
 
+const refreshPage = () => {
+  document.location.reload(false);
+}
+
 /*---------------------
       Alerts
 -----------------------*/
 
-/* const textspan = document.createElement("span");
-textspan.innerHTML = "Categoria ya existe";
-
 const swalCatDuplicate = () => {
   Swal.fire({
-    icon: 'error',
-    title: 'Oops...',
-    text: 'Categoria ya existe!'
-    //footer: '<a href="">Why do I have this issue?</a>'
-  })
-}; */
+    icon: "error",
+    title: "Oops...",
+    text: "Categoria ya existe!",
+  });
+};
+
+const swalCatNameEmpty = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    html: "Por favor ingrese un <strong>Nombre</strong> de categoria!",
+  });
+};
+
+const swalCreateCat = () => {
+  Swal.fire("Bien hecho!", "Categoria creada!", "success");
+};

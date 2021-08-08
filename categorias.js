@@ -37,39 +37,36 @@ const loadCategories = () => {
 loadCategories();
 updateData(data);
 
+/* Create new categories */
 const createCategories = () => {
   const newCategoryName = slugify($("#new-categoria-input").value);
-  if (data.categories.find((d) => d === newCategoryName)) {
-    //swalCatDuplicate();
-    alert("Categoria ya existe");
+  if (data.categories.find((d) => d.name === newCategoryName)) {
+    swalCatDuplicate();
     $("#new-categoria-input").value = "";
   } else if (newCategoryName === "") {
-    alert("Por favor ingrese un nombre de categoria");
+    swalCatNameEmpty();
     $("#new-categoria-input").value = "";
   } else {
     data.categories.push(setFormat(newCategoryName));
     updateData(data);
     $("#new-categoria-input").value = "";
+    //refreshPage();
+    swalCreateCat();
   }
   console.log("afterCreateNewCategory ", data.categories);
 };
 $("#new-categoria-btn").addEventListener("click", createCategories);
 
-/*EDITAR categories*/
+/*Edit categories*/
+const editCategory = () => {
+  $("#btnEditCategory").addEventListener("click", () => {
+    $("#sectionEditCategory").classList.remove("is-hidden");
+    $("#sectionCategorias").classList.add("is-hidden");
+  });
+  $("#btnCancelEditCat").addEventListener("click", () => {
+    $("#sectionEditCategory").classList.add("is-hidden");
+    $("#sectionCategorias").classList.remove("is-hidden");
+  });
+};
 
-$("#btnEditCategory").addEventListener("click", () => {
-  $("#sectionEditCategory").classList.remove("is-hidden");
-  $("#sectioncategories").classList.add("is-hidden");
-});
-$("#btnCancelEditCat").addEventListener("click", () => {
-  $("#sectionEditCategory").classList.add("is-hidden");
-  $("#sectioncategories").classList.remove("is-hidden");
-});
-
-// const editCategory = (categoriaNueva, categories) => {
-//   return categories.map((categoria) =>
-//     categoriaNueva === categoria
-//       ? { ...categoria, ...categoriaNueva }
-//       : categoria
-//   )
-// }
+editCategory();
