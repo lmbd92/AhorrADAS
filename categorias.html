@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,11 +33,20 @@
           <div
             class="navbar-burger burger"
             aria-label="menu"
-            aria-expanded="false"
+            aria-expanded="false" id="burger" onclick="toggleBurger()"
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
+          </div>
+        </div>
+            <!--Burger menu options-->
+          <div id="teamList" class="navbar-menu">
+            <div class="navbar-dropdown">
+              <a class="navbar-item " href="./balance.html">Balance</a>
+               <a class="navbar-item " href="./categorias.html">Categorías</a>
+                <a class="navbar-item " href="./reportes.html">Reportes</a>
+            </div>
           </div>
         </div>
         <div class="navbar-menu">
@@ -92,10 +102,10 @@
               <h2 class="is-size-4 has-text-weight-bold">Editar categoria</h2>
             </div>
             <div class="field">
-              <label class="label mt-6" for="editCategoryForm">Nombre</label>
+              <label class="label mt-6" for="editCategoryInput">Nombre</label>
               <div class="field is-grouped">
                 <div class="control is-expanded">
-                  <input class="input" type="text" name="" id="editCategoryForm" />
+                  <input class="input" type="text" name="" id="editCategoryInput" />
                 </div>
                 <div class="control in-line">
                   <button type="submit" class="button is-light" id="btnCancelEditCat">

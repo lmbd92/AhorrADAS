@@ -1,9 +1,14 @@
 "use strict";
-
-const setFormat = (name) => {
+/*BURGER MENU OPTIONS*/
+const toggleBurger = () => {
+  let burgerIcon = document.getElementById("burger");
+  let dropMenu = document.getElementById("teamList");
+  burgerIcon.classList.toggle("is-active");
+  dropMenu.classList.toggle("is-active");
+};
+const setFormatCat = (name) => {
   return { id: uuidv4(), name };
 };
-
 /*---------------------
       Local Storage
 -----------------------*/
@@ -15,26 +20,20 @@ const getStorage = () => {
     "educación",
     "transporte",
     "trabajo",
-  ].map((c) => setFormat(c));
+  ].map((c) => setFormatCat(c));
   const locStorage = JSON.parse(localStorage.getItem("data")) || {
     categories,
     operations: [],
   };
   return locStorage;
 };
-
 const updateData = (data) => {
   localStorage.setItem("data", JSON.stringify(data));
 };
 
-const refreshPage = () => {
-  document.location.reload(false);
-}
-
 /*---------------------
       Alerts
 -----------------------*/
-
 const swalCatDuplicate = () => {
   Swal.fire({
     icon: "error",
@@ -42,7 +41,6 @@ const swalCatDuplicate = () => {
     text: "Categoria ya existe!",
   });
 };
-
 const swalCatNameEmpty = () => {
   Swal.fire({
     icon: "error",
@@ -50,7 +48,6 @@ const swalCatNameEmpty = () => {
     html: "Por favor ingrese un <strong>Nombre</strong> de categoria!",
   });
 };
-
 const swalCreateCat = () => {
   Swal.fire("Bien hecho!", "Categoria creada!", "success");
-};
+};  
