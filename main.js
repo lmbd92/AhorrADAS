@@ -34,20 +34,20 @@ const updateData = (data) => {
 /*---------------------
       Alerts
 -----------------------*/
-const swalCatDuplicate = () => {
+const swalDuplicate = () => {
   Swal.fire({
     icon: "error",
     title: "Oops...",
-    text: "Categoria ya existe!",
+    text: "Valor ya existe!",
   });
 };
-const swalCatNameEmpty = () => {
+const swalEmpty = () => {
   Swal.fire({
     icon: "error",
     title: "Oops...",
-    html: "Por favor ingrese un <strong>Nombre</strong> de categoria!",
+    html: "Por favor ingrese un <strong>Valor</strong>!",
   });
 };
-const swalCreateCat = () => {
-  Swal.fire("Bien hecho!", "Categoria creada!", "success");
+const swalCreate = () => {
+  Swal.fire("Bien hecho!", "transacción ejecutada!", "success");
 };  

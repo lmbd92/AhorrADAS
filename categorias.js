@@ -40,16 +40,16 @@ updateData(data);
 const createCategories = () => {
   const newCategoryName = slugify($("#new-categoria-input").value);
   if (data.categories.find((d) => d.name === newCategoryName)) {
-    swalCatDuplicate();
+    swalDuplicate();
     $("#new-categoria-input").value = "";
   } else if (newCategoryName === "") {
-    swalCatNameEmpty();
+    swalEmpty();
     $("#new-categoria-input").value = "";
   } else {
     data.categories.push(setFormatCat(newCategoryName));
     updateData(data);
     $("#new-categoria-input").value = "";
-    swalCreateCat();
+    swalCreate();
   }
 };
 $("#new-categoria-btn").addEventListener("click", createCategories);
