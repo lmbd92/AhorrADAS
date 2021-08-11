@@ -4,6 +4,7 @@ const data = getStorage();
 const loadCategories = () => {
   const { categories } = getStorage();
   let listCategories = document.getElementById("listCategories");
+  listCategories.innerHTML = "";
   for (const category of categories) {
     let boxCategory = document.createElement("div");
     let elementBox = document.createElement("div");
@@ -16,8 +17,8 @@ const loadCategories = () => {
     elementBox.setAttribute("class", "column list-item");
     element.setAttribute("class", "tag is-primary is-light m-2 is-medium");
     BtnsBox.setAttribute("class", "column in-line has-text-right");
-    btnEdit.setAttribute("class", "button is-warning m-2");
-    btnEdit.setAttribute("id", "btnEditCategory");
+    btnEdit.setAttribute("class", "button is-warning m-2 btnEditCategory");
+    //btnEdit.setAttribute("class", "btnEditCategory");
     btnRemove.setAttribute("class", "button is-danger m-2");
     btnRemove.setAttribute("id", "btnRemoveCategory");
 
@@ -25,6 +26,8 @@ const loadCategories = () => {
     element.style.textTransform = "uppercase";
     btnEdit.innerText = "Editar";
     btnRemove.innerText = "Eliminar";
+    btnEdit.dataset.id = category.id;
+    btnRemove.dataset.id = category.id;
 
     listCategories.appendChild(boxCategory);
     boxCategory.appendChild(elementBox);
@@ -50,7 +53,7 @@ const createCategories = () => {
     data.categories.push(setFormat(newCategoryName));
     updateData(data);
     $("#new-categoria-input").value = "";
-    //refreshPage();
+    loadCategories();
     swalCreateCat();
   }
   console.log("afterCreateNewCategory ", data.categories);
@@ -58,15 +61,30 @@ const createCategories = () => {
 $("#new-categoria-btn").addEventListener("click", createCategories);
 
 /*Edit categories*/
-const editCategory = () => {
-  $("#btnEditCategory").addEventListener("click", () => {
+document.querySelectorAll(".btnEditCategory").forEach((i) => {
+  i.addEventListener("click", (e) => {
+    const id_categoryToEdit = e.target.dataset.id;
+    const name_categoryToEdit = data.categories.find(
+      (x) => x.id === id_categoryToEdit
+    ).name;
+
     $("#sectionEditCategory").classList.remove("is-hidden");
     $("#sectionCategorias").classList.add("is-hidden");
+    $("#editCategoryForm").value = name_categoryToEdit;
+    $("#editCategoryForm").setAttribute("value", name_categoryToEdit);
+    const oldName = $("#editCategoryForm").value;
   });
-  $("#btnCancelEditCat").addEventListener("click", () => {
-    $("#sectionEditCategory").classList.add("is-hidden");
-    $("#sectionCategorias").classList.remove("is-hidden");
-  });
-};
+});
 
-editCategory();
+$("#btnSubmitEditCat").addEventListener("click", () => {
+  const olsNameCategory=""; // pensar de donde capturar el value antes de ser modificado
+  const newNameCategory = $("#editCategoryForm").value;
+  console.log({ newNameCategory });
+  const resultado = data.categories.find((x) => x.name === newNameCategory);
+  console.log({ resultado });
+});
+
+$("#btnCancelEditCat").addEventListener("click", () => {
+  $("#sectionEditCategory").classList.add("is-hidden");
+  $("#sectionCategorias").classList.remove("is-hidden");
+});

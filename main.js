@@ -27,10 +27,6 @@ const updateData = (data) => {
   localStorage.setItem("data", JSON.stringify(data));
 };
 
-const refreshPage = () => {
-  document.location.reload(false);
-}
-
 /*---------------------
       Alerts
 -----------------------*/
