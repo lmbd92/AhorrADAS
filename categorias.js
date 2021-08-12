@@ -18,7 +18,6 @@ const loadCategories = () => {
     element.setAttribute("class", "tag is-primary is-light m-2 is-medium");
     BtnsBox.setAttribute("class", "column in-line has-text-right");
     btnEdit.setAttribute("class", "button is-warning m-2 btnEditCategory");
-    //btnEdit.setAttribute("class", "btnEditCategory");
     btnRemove.setAttribute("class", "button is-danger m-2");
     btnRemove.setAttribute("id", "btnRemoveCategory");
 
@@ -72,16 +71,23 @@ document.querySelectorAll(".btnEditCategory").forEach((i) => {
     $("#sectionCategorias").classList.add("is-hidden");
     $("#editCategoryForm").value = name_categoryToEdit;
     $("#editCategoryForm").setAttribute("value", name_categoryToEdit);
-    const oldName = $("#editCategoryForm").value;
+     $("#editCategoryForm").dataset.id = id_categoryToEdit;
   });
 });
 
 $("#btnSubmitEditCat").addEventListener("click", () => {
-  const olsNameCategory=""; // pensar de donde capturar el value antes de ser modificado
   const newNameCategory = $("#editCategoryForm").value;
   console.log({ newNameCategory });
-  const resultado = data.categories.find((x) => x.name === newNameCategory);
-  console.log({ resultado });
+  const index = data.categories.findIndex((x) => x.id === $("#editCategoryForm").dataset.id
+  );
+  data.categories[index].name = newNameCategory;
+  updateData(data);
+
+  console.log({ index });
+  loadCategories();
+  $("#sectionEditCategory").classList.add("is-hidden");
+  $("#sectionCategorias").classList.remove("is-hidden");
+  
 });
 
 $("#btnCancelEditCat").addEventListener("click", () => {
