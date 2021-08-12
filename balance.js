@@ -26,42 +26,60 @@ $("#btn-new-op-agregar").addEventListener("click", () => {
   addNewOperation();
 });
 /************************
+ * Get Date
+ ************************/
+$("#filtro_fecha").valueAsDate =new Date();
+$("#new-op-date").valueAsDate =new Date();
+/************************
  * LOADING SELECT OPTIONS
  ************************/
 const loadSelectOptions =  () => {
   const { categories } = getStorage();
- // let selectCategories = document.getElementById("selectCategories");
-  let selectOperationCategories = document.getElementById("new-op-category");
+  let selectCategoriesFilter = document.getElementById("selectCategories");
+  let selectCategoriesOperation = document.getElementById("new-op-category");
   for (let category of categories) {
-    let categoryOption = document.createElement("option");
-    categoryOption.value = category.name;
-    categoryOption.innerText = category.name;
-    categoryOption.style.textTransform = "uppercase";
-    //selectCategories.appendChild(categoryOption);
-    selectOperationCategories.appendChild(categoryOption);
+    let categoryOptionsFilter = document.createElement("option");
+    let categoryOptionsOperation = document.createElement("option");
+
+    categoryOptionsFilter.value = category.name;
+    categoryOptionsFilter.innerText = category.name;
+    categoryOptionsFilter.style.textTransform = "uppercase";
+
+    categoryOptionsOperation.value = category.name;
+    categoryOptionsOperation.innerText = category.name;
+    categoryOptionsOperation.style.textTransform = "uppercase";
+
+    selectCategoriesFilter.appendChild(categoryOptionsFilter);
+    selectCategoriesOperation.appendChild(categoryOptionsOperation);
   }
 };
 loadSelectOptions()
 /*New Operation*/
 const addNewOperation = () => {
   /*Postear al LocalStorage*/
-  const nameOperation = slugify($("#new-op-description").value);
-  const amountOperation = slugify($("#new-op-amount").value);
-  const typeOperation = slugify($("#new-op-type").value);
-  const categoryOperation = slugify($("#new-op-category").value);
-  console.log({ categoryOperation });
-  const dateOperation = slugify($("#new-op-date").value);
-  const newOperation = {
-        id: uuidv4(),
-        name: nameOperation,
-        amount: amountOperation,
-        type: typeOperation,
-        category: categoryOperation,
-        date: dateOperation,
+  let nameOperation = $("#new-op-description").value;
+  let amountOperation = $("#new-op-amount").value;
+  let typeOperation = $("#new-op-type").value;
+  let categoryOperation = $("#new-op-category").value;
+  let dateOperation = $("#new-op-date").value;
+
+  if ((nameOperation === "") || (dateOperation === "") || (amountOperation === "")) {
+    swalEmpty();
+
+  } else {
+    const newOperation = {
+      id: uuidv4(),
+      name: nameOperation,
+      amount: amountOperation,
+      type: typeOperation,
+      category: categoryOperation,
+      date: dateOperation,
     };
-  data.operations.push(newOperation);
-  updateData(data);
-  loadOperations();
+    data.operations.push(newOperation);
+    updateData(data);
+    swalCreate();
+    loadOperations();
+  }
 };
 
 const loadOperations = () => {
@@ -79,11 +97,26 @@ const loadOperations = () => {
     dataRowOpCategory.innerText = operation.category;
     dataRowOpDate.innerText = operation.date;
     dataRowOpAmount.innerText = operation.amount;
+    let BtnsBoxTable = document.createElement("div");
+    let btnEditTable = document.createElement("button");
+    let btnRemoveTable = document.createElement("button");
+    rowOperation.setAttribute("class", "has-text-centered")
+    BtnsBoxTable.setAttribute("class", "column in-line has-text-centered is-centered");
+    btnEditTable.setAttribute("class", "button is-warning m-1");
+    btnEditTable.setAttribute("id", "btnEditOperation");
+    btnRemoveTable.setAttribute("class", "button is-danger m-1");
+    btnRemoveTable.setAttribute("id", "btnRemoveOperation");
+    btnEditTable.innerText = "Editar";
+    btnRemoveTable.innerText = "Eliminar";
+    BtnsBoxTable.appendChild(btnEditTable);
+    BtnsBoxTable.appendChild(btnRemoveTable);
     
     rowOperation.appendChild(dataRowOpDescription);
     rowOperation.appendChild(dataRowOpCategory);
     rowOperation.appendChild(dataRowOpDate);
     rowOperation.appendChild(dataRowOpAmount);
+    rowOperation.appendChild(BtnsBoxTable);
+
     operationsTableBody.appendChild(rowOperation);
   }
 }

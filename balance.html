@@ -5,11 +5,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
+        <script
       src="https://kit.fontawesome.com/46da04e41b.js"
       crossorigin="anonymous"
     ></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
@@ -192,7 +192,7 @@
             <!--Operations Table-->
             <table class="table is-hidden is-fullwidth" id="operations-table">
               <thead>
-                <tr>
+                <tr class="has-text-centered">
                   <th><abbr title="table-name">Descripción</abbr></th>
                   <th><abbr title="table-category">Categoria</abbr></th>
                   <th><abbr title="table-dat">Fecha</abbr></th>
@@ -268,7 +268,7 @@
                     <label class="label" for="new-op-date">Fecha</label>
                     <div class="control">
                       <div class="is-fullwidth">
-                        <input class="input" type="date" id="new-op-date" />
+                        <input class="input" type="date" id="new-op-date" value=""/>
                       </div>
                     </div>
                   </div>

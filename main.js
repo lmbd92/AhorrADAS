@@ -49,5 +49,5 @@ const swalEmpty = () => {
   });
 };
 const swalCreate = () => {
-  Swal.fire("Bien hecho!", "transacción ejecutada!", "success");
+  Swal.fire("Bien hecho!", "Transacción ejecutada!", "success");
 };  
