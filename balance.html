@@ -1,14 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
+        <script
       src="https://kit.fontawesome.com/46da04e41b.js"
       crossorigin="anonymous"
     ></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
@@ -23,7 +24,7 @@
         aria-label="main navigation"
       >
         <div class="navbar-brand">
-          <a class="navbar-item">
+          <a class="navbar-item" href="./balance.html">
             <h1 class="title has-text-white">
               <i class="fas fa-wallet mr-2" aria-hidden="true"></i>
               AhorrADAS
@@ -37,6 +38,7 @@
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
+          </div>
           </div>
           <!--Burger menu options-->
           <div id="teamList" class="navbar-menu">
@@ -138,7 +140,7 @@
               </div>
             </div>
             <!---->
-            <div class="field">
+             <div class="field">
               <label class="label" for="selectCategories">Categoría</label>
               <div class="select is-normal is-fullwidth">
                 <select id="selectCategories">
@@ -183,11 +185,23 @@
             </div>
             <div class="column vcentered">
               <img
-                class=""
+                id="img-new-op-blankbox"
                 src="./styles/imgs/undraw_Credit_card_payments_re_qboh.png"
               />
             </div>
-          </div>
+            <!--Operations Table-->
+            <table class="table is-hidden is-fullwidth" id="operations-table">
+              <thead>
+                <tr class="has-text-centered">
+                  <th><abbr title="table-name">Descripción</abbr></th>
+                  <th><abbr title="table-category">Categoria</abbr></th>
+                  <th><abbr title="table-dat">Fecha</abbr></th>
+                  <th><abbr title="table-amount">Monto</abbr></th>
+                  <th><abbr title="table-actions">Acciones</abbr></th>
+                </tr>
+              </thead>
+              <tbody id="operations-table-body"></tbody>
+            </table>
         </div>
       </div>
     </section>
@@ -203,26 +217,26 @@
                     Nueva operación
                   </h2>
                   <div class="field mt-6">
-                    <label class="label" for="new-op-descripcion">Descripción</label>
+                    <label class="label" for="new-op-description">Descripción</label>
                     <div class="control">
                       <div class="is-fullwidth">
                         <input
                           class="input"
                           type="text"
-                          id="new-op-descripcion"
+                          id="new-op-description"
                         />
                       </div>
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label" for="new-op-monto">Monto</label>
+                    <label class="label" for="new-op-amount">Monto</label>
                     <div class="control">
                       <div class="control">
                         <div class="is-fullwidth">
                           <input
                             class="input"
                             type="number"
-                            id="new-op-monto"
+                            id="new-op-amount"
                             value="0"
                           />
                         </div>
@@ -230,10 +244,10 @@
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label" for="new-op-tipo">Tipo</label>
+                    <label class="label" for="new-op-type">Tipo</label>
                     <div class="control">
                       <div class="select is-fullwidth">
-                        <select id="new-op-tipo">
+                        <select id="new-op-type">
                             <option value="todos">Todos</option>
                             <option value="gasto">Gasto</option>
                             <option value="ganancia">Ganancia</option>
@@ -241,27 +255,20 @@
                       </div>
                     </div>
                   </div>
+                    <!---->
+            <div class="field">
+              <label class="label" for="new-op-category">Categoría</label>
+              <div class="select is-normal is-fullwidth">
+                <select id="new-op-category">
+                  <option name="todas" value="todas" selected>TODAS</option>
+                </select>              
+              </div>
+            <!---->
                   <div class="field">
-                    <label class="label" for="new-op-cat">Categoría</label>
-                    <div class="control">
-                      <div class="select is-fullwidth">
-                        <select class="categorias-select" id="new-op-cat">
-                            <option value="todas">Todas</option>
-                            <option value="comidas">Comidas</option>
-                            <option value="servicios">Servicios</option>
-                            <option value="salidas">Salidas</option>
-                            <option value="educacion">Educacion</option>
-                            <option value="transporte">Transporte</option>
-                            <option value="trabajo">Trabajo</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label" for="new-op-fecha">Fecha</label>
+                    <label class="label" for="new-op-date">Fecha</label>
                     <div class="control">
                       <div class="is-fullwidth">
-                        <input class="input" type="date" id="new-op-fecha" />
+                        <input class="input" type="date" id="new-op-date" value=""/>
                       </div>
                     </div>
                   </div>
@@ -285,6 +292,7 @@
       </div>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+    <script src="./helpers/helpers.js"></script>
     <script src="main.js"></script>
     <script src="balance.js"></script>
   </body>

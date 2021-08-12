@@ -1,9 +1,14 @@
 "use strict";
-
-const setFormat = (name) => {
+/*BURGER MENU OPTIONS*/
+const toggleBurger = () => {
+  let burgerIcon = document.getElementById("burger");
+  let dropMenu = document.getElementById("teamList");
+  burgerIcon.classList.toggle("is-active");
+  dropMenu.classList.toggle("is-active");
+};
+const setFormatCat = (name) => {
   return { id: uuidv4(), name };
 };
-
 /*---------------------
       Local Storage
 -----------------------*/
@@ -15,14 +20,13 @@ const getStorage = () => {
     "educación",
     "transporte",
     "trabajo",
-  ].map((c) => setFormat(c));
+  ].map((c) => setFormatCat(c));
   const locStorage = JSON.parse(localStorage.getItem("data")) || {
     categories,
     operations: [],
   };
   return locStorage;
 };
-
 const updateData = (data) => {
   localStorage.setItem("data", JSON.stringify(data));
 };
@@ -30,23 +34,20 @@ const updateData = (data) => {
 /*---------------------
       Alerts
 -----------------------*/
-
-const swalCatDuplicate = () => {
+const swalDuplicate = () => {
   Swal.fire({
     icon: "error",
     title: "Oops...",
-    text: "Categoria ya existe!",
+    text: "Valor ya existe!",
   });
 };
-
-const swalCatNameEmpty = () => {
+const swalEmpty = () => {
   Swal.fire({
     icon: "error",
     title: "Oops...",
-    html: "Por favor ingrese un <strong>Nombre</strong> de categoria!",
+    html: "Por favor ingrese un <strong>Valor</strong>!",
   });
 };
-
-const swalCreateCat = () => {
-  Swal.fire("Bien hecho!", "Categoria creada!", "success");
-};
+const swalCreate = () => {
+  Swal.fire("Bien hecho!", "Transacción ejecutada!", "success");
+};  
