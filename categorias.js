@@ -62,6 +62,8 @@ document.querySelectorAll(".btnEditCategory").forEach((i) => {
     const name_categoryToEdit = data.categories.find(
       (x) => x.id === id_categoryToEdit
     ).name;
+  });
+});
 /*Edit category*/
 const editCategory = () => {
   /*Se abre el modal*/
@@ -72,7 +74,7 @@ const editCategory = () => {
     $("#editCategoryForm").setAttribute("value", name_categoryToEdit);
      $("#editCategoryForm").dataset.id = id_categoryToEdit;
   });
-});
+};
 
 $("#btnSubmitEditCat").addEventListener("click", () => {
   const newNameCategory = $("#editCategoryForm").value;
@@ -97,6 +99,4 @@ $("#btnCancelEditCat").addEventListener("click", () => {
     $("#sectionEditCategory").classList.add("is-hidden");
     $("#sectionCategorias").classList.remove("is-hidden");
   });
-};
 editCategory();
-
