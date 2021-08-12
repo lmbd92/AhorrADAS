@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,6 +9,7 @@
       src="https://kit.fontawesome.com/46da04e41b.js"
       crossorigin="anonymous"
     ></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
@@ -31,11 +33,20 @@
           <div
             class="navbar-burger burger"
             aria-label="menu"
-            aria-expanded="false"
+            aria-expanded="false" id="burger" onclick="toggleBurger()"
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
+          </div>
+        </div>
+            <!--Burger menu options-->
+          <div id="teamList" class="navbar-menu">
+            <div class="navbar-dropdown">
+              <a class="navbar-item " href="./balance.html">Balance</a>
+               <a class="navbar-item " href="./categorias.html">Categorías</a>
+                <a class="navbar-item " href="./reportes.html">Reportes</a>
+            </div>
           </div>
         </div>
         <div class="navbar-menu">
@@ -54,29 +65,64 @@
         </div>
       </nav>
     </header>
-    <section class="section" id="section_categorias">
+    <section class="section" id="sectionCategorias">
       <div class="container is-8-widescreen is-10-desktop">
           <div class="box" id="categorias_box">
             <div class="column vcentered">
               <h2 class="is-size-4 has-text-weight-bold">Categorías</h2>
             </div>
             <div class="field">
-              <label class="label mt-6" for="new_categoria">Nombre</label>
+              <label class="label mt-6" for="new-categoria-input">Nombre</label>
               <div class="field is-grouped">
                 <div class="control is-expanded">
-                  <input class="input" type="text" name="" id="new_categoria" />
+                  <input class="input" type="text" name="" id="new-categoria-input" />
                 </div>
                 <div class="control">
-                  <button class="button is-success">
+                  <button type="submit" class="button is-success" id="new-categoria-btn">
                     Agregar
                   </button>
                 </div>
               </div>
             </div>
+            <div class="columns">
+              <div class="column">
+                <ul id="listCategories"></ul>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>
     </section>
-
+    <!--Modal Edit Category-->
+      <section class="section is-hidden" id="sectionEditCategory">
+        <div class="container is-8-widescreen is-10-desktop">
+          <div class="box" id="editCategoryBox">
+            <div class="column vcentered">
+              <h2 class="is-size-4 has-text-weight-bold">Editar categoria</h2>
+            </div>
+            <div class="field">
+              <label class="label mt-6" for="editCategoryInput">Nombre</label>
+              <div class="field is-grouped">
+                <div class="control is-expanded">
+                  <input class="input" type="text" name="" id="editCategoryInput" />
+                </div>
+                <div class="control in-line">
+                  <button type="submit" class="button is-light" id="btnCancelEditCat">
+                    Cancelar
+                  </button>
+                  <button type="submit" class="button is-success" id="btnSubmitEditCat">
+                    Editar
+                  </button>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+    <script src="./helpers/helpers.js"></script>
+    <script src="main.js"></script>
+    <script src="categorias.js"></script>
   </body>
 </html>

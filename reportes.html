@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,11 +32,20 @@
           <div
             class="navbar-burger burger"
             aria-label="menu"
-            aria-expanded="false"
+            aria-expanded="false" id="burger" onclick="toggleBurger()"
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
+          </div>
+          </div>
+          <!--Burger menu options-->
+          <div id="teamList" class="navbar-menu">
+            <div class="navbar-dropdown">
+              <a class="navbar-item " href="./balance.html">Balance</a>
+               <a class="navbar-item " href="./categorias.html">Categorías</a>
+                <a class="navbar-item " href="./reportes.html">Reportes</a>
+            </div>
           </div>
         </div>
         <div class="navbar-menu">
@@ -64,5 +74,8 @@
         </div>
       </div>
     </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+    <script src="main.js"></script>
+    <script src="reportes.js"></script>
   </body>
 </html>
