@@ -17,8 +17,7 @@ const loadCategories = () => {
     element.setAttribute("id", "idTagOptionParent");
     element.setAttribute("class", "tag is-primary is-light m-2 is-medium");
     BtnsBox.setAttribute("class", "column in-line has-text-right");
-    btnEdit.setAttribute("class", "button is-warning m-2");
-    btnEdit.setAttribute("id", "btnEditCategory");
+    btnEdit.setAttribute("class", "button is-warning m-2 btnEditCategory");
     btnRemove.setAttribute("class", "button is-danger m-2");
     btnRemove.setAttribute("id", "btnRemoveCategory");
     
@@ -26,6 +25,8 @@ const loadCategories = () => {
     element.style.textTransform = "uppercase";
     btnEdit.innerText = "Editar";
     btnRemove.innerText = "Eliminar";
+    btnEdit.dataset.id = category.id;
+    btnRemove.dataset.id = category.id;
     listCategories.appendChild(boxCategory);
     boxCategory.appendChild(elementBox);
     boxCategory.appendChild(BtnsBox);
@@ -49,26 +50,53 @@ const createCategories = () => {
     data.categories.push(setFormatCat(newCategoryName));
     updateData(data);
     $("#new-categoria-input").value = "";
+    loadCategories();
     swalCreate();
   }
 };
 $("#new-categoria-btn").addEventListener("click", createCategories);
+/*Edit categories*/
+document.querySelectorAll(".btnEditCategory").forEach((i) => {
+  i.addEventListener("click", (e) => {
+    const id_categoryToEdit = e.target.dataset.id;
+    const name_categoryToEdit = data.categories.find(
+      (x) => x.id === id_categoryToEdit
+    ).name;
 /*Edit category*/
 const editCategory = () => {
   /*Se abre el modal*/
   $("#btnEditCategory").addEventListener("click", () => {
     $("#sectionEditCategory").classList.remove("is-hidden");
     $("#sectionCategorias").classList.add("is-hidden");
+    $("#editCategoryForm").value = name_categoryToEdit;
+    $("#editCategoryForm").setAttribute("value", name_categoryToEdit);
+     $("#editCategoryForm").dataset.id = id_categoryToEdit;
   });
+});
+
+$("#btnSubmitEditCat").addEventListener("click", () => {
+  const newNameCategory = $("#editCategoryForm").value;
+  console.log({ newNameCategory });
+  const index = data.categories.findIndex((x) => x.id === $("#editCategoryForm").dataset.id
+  );
+  data.categories[index].name = newNameCategory;
+  updateData(data);
+
+  console.log({ index });
+  loadCategories();
+  $("#sectionEditCategory").classList.add("is-hidden");
+  $("#sectionCategorias").classList.remove("is-hidden");
+  
+});
+
+$("#btnCancelEditCat").addEventListener("click", () => {
+  $("#sectionEditCategory").classList.add("is-hidden");
+  $("#sectionCategorias").classList.remove("is-hidden");
+});
   $("#btnCancelEditCat").addEventListener("click", () => {
     $("#sectionEditCategory").classList.add("is-hidden");
     $("#sectionCategorias").classList.remove("is-hidden");
   });
 };
 editCategory();
-/*Remove category*/
-// const eliminarCategoria = (id, categories) => {
-//   $("#btnRemoveCategory").addEventListener("click", () => {
-//     return categories.filter((category) => category.id !== id)
-//   })
-// };
+
