@@ -7,8 +7,7 @@ const setFormat = (name) => {
 /*---------------------
       Local Storage
 -----------------------*/
-const getStorage = () => {
-  const categories = [
+const categories = [
     "comida",
     "servicios",
     "salidas",
@@ -16,11 +15,14 @@ const getStorage = () => {
     "transporte",
     "trabajo",
   ].map((c) => setFormat(c));
-  const locStorage = JSON.parse(localStorage.getItem("data")) || {
-    categories,
-    operations: [],
-  };
-  return locStorage;
+localStorage.setItem('data', JSON.stringify({
+  categories,
+  operations: [],
+}));
+
+const getStorage = () => {
+  const stg = JSON.parse(localStorage.getItem('data'));
+  return stg;
 };
 
 const updateData = (data) => {
