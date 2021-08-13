@@ -1,9 +1,14 @@
 "use strict";
-
+/*BURGER MENU OPTIONS*/
+const toggleBurger = () => {
+  let burgerIcon = document.getElementById("burger");
+  let dropMenu = document.getElementById("teamList");
+  burgerIcon.classList.toggle("is-active");
+  dropMenu.classList.toggle("is-active");
+};
 const setFormat = (name) => {
   return { id: uuidv4(), name };
 };
-
 /*---------------------
       Local Storage
 -----------------------*/
@@ -24,7 +29,6 @@ const getStorage = () => {
   const stg = JSON.parse(localStorage.getItem('data'));
   return stg;
 };
-
 const updateData = (data) => {
   localStorage.setItem("data", JSON.stringify(data));
 };
@@ -32,23 +36,20 @@ const updateData = (data) => {
 /*---------------------
       Alerts
 -----------------------*/
-
-const swalCatDuplicate = () => {
+const swalDuplicate = () => {
   Swal.fire({
     icon: "error",
     title: "Oops...",
-    text: "Categoria ya existe!",
+    text: "Valor ya existe!",
   });
 };
-
-const swalCatNameEmpty = () => {
+const swalEmpty = () => {
   Swal.fire({
     icon: "error",
     title: "Oops...",
-    html: "Por favor ingrese un <strong>Nombre</strong> de categoria!",
+    html: "Por favor ingrese un <strong>Valor</strong>!",
   });
 };
-
-const swalCreateCat = () => {
-  Swal.fire("Bien hecho!", "Categoria creada!", "success");
-};
+const swalCreate = () => {
+  Swal.fire("Bien hecho!", "Transacción ejecutada!", "success");
+};  
