@@ -1,8 +1,7 @@
 const $ = (selector) => document.querySelector(selector);
-const data = getStorage();
-
 /*Edit categories*/
 const editCategory = (e) => {
+  const data = getStorage();
   const id_categoryToEdit = e.target.dataset.id;
   const name_categoryToEdit = data.categories.find(
     (x) => x.id === id_categoryToEdit
@@ -14,16 +13,13 @@ const editCategory = (e) => {
   $("#editCategoryForm").setAttribute("value", name_categoryToEdit);
   $("#editCategoryForm").dataset.id = id_categoryToEdit;
 };
-  
+  /*Remove categories*/
 const removeCategory = (e) => {
-  const storage = getStorage();
+  const data = getStorage();
   const id_categoryToRemove = e.target.dataset.id;
-  console.log(id_categoryToRemove);
   const remainingCategories = data.categories.filter(category => category.id !== id_categoryToRemove);
-  console.log(remainingCategories);
-  console.log({ categories: remainingCategories });
-  updateData({ categories: remainingCategories, ...storage });
-    
+  updateData({...data, categories: remainingCategories });
+  loadCategories(); 
 }; 
 
 const loadCategories = () => {
@@ -63,13 +59,13 @@ const loadCategories = () => {
   }
 };
 loadCategories();
-updateData(data);
 
 /* Create new categories */
 const createCategories = () => {
+  const data = getStorage();
   const newCategoryName = slugify($("#new-categoria-input").value);
   if (data.categories.find((d) => d.name === newCategoryName)) {
-    swalCatDuplicate();
+    swalDuplicate();
     $("#new-categoria-input").value = "";
   } else if (newCategoryName === "") {
     swalCatNameEmpty();
@@ -79,27 +75,21 @@ const createCategories = () => {
     updateData(data);
     $("#new-categoria-input").value = "";
     loadCategories();
-    swalCreateCat();
+    swalCreate();
   }
-  console.log("afterCreateNewCategory ", data.categories);
 };
 $("#new-categoria-btn").addEventListener("click", createCategories);
 
 $("#btnSubmitEditCat").addEventListener("click", () => {
+  const data = getStorage();
   const newNameCategory = $("#editCategoryForm").value;
-  console.log({ newNameCategory });
-  const index = data.categories.findIndex((x) => x.id === $("#editCategoryForm").dataset.id
-  );
+  const index = data.categories.findIndex((x) => x.id === $("#editCategoryForm").dataset.id);
   data.categories[index].name = newNameCategory;
   updateData(data);
-
-  console.log({ index });
   loadCategories();
   $("#sectionEditCategory").classList.add("is-hidden");
   $("#sectionCategorias").classList.remove("is-hidden");
-  
 });
-
 $("#btnCancelEditCat").addEventListener("click", () => {
   $("#sectionEditCategory").classList.add("is-hidden");
   $("#sectionCategorias").classList.remove("is-hidden");

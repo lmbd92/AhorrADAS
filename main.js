@@ -20,16 +20,17 @@ const categories = [
     "transporte",
     "trabajo",
   ].map((c) => setFormat(c));
-localStorage.setItem('data', JSON.stringify({
-  categories,
-  operations: [],
-}));
+// localStorage.setItem('data', JSON.stringify({
+//   categories,
+//   operations: [],
+// }));
 
 const getStorage = () => {
   const stg = JSON.parse(localStorage.getItem('data'));
   return stg;
 };
 const updateData = (data) => {
+  console.log(data);
   localStorage.setItem("data", JSON.stringify(data));
 };
 
