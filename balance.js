@@ -1,5 +1,4 @@
 const $ = (selector) => document.querySelector(selector);
-const data = getStorage();
 $("#btn-ocultar-filtros").addEventListener("click", () => {
   const filterText = $("#btn-ocultar-filtros").innerText;
   if (filterText === "Ocultar filtros") {
@@ -12,15 +11,15 @@ $("#btn-ocultar-filtros").addEventListener("click", () => {
 });
 $("#btn-Nueva-Op").addEventListener("click", () => {
   $("#section_nueva_operacion").classList.remove("is-hidden");
-  $("#section_inicio").classList.add("is-hidden");
+  $("#sectionInicio").classList.add("is-hidden");
 });
 $("#btn-new-op-cancelar").addEventListener("click", () => {
   $("#section_nueva_operacion").classList.add("is-hidden");
-  $("#section_inicio").classList.remove("is-hidden");
+  $("#sectionInicio").classList.remove("is-hidden");
 });
 $("#btn-new-op-agregar").addEventListener("click", () => {
   $("#section_nueva_operacion").classList.add("is-hidden");
-  $("#section_inicio").classList.remove("is-hidden");
+  $("#sectionInicio").classList.remove("is-hidden");
   $("#img-new-op-blankbox").classList.add("is-hidden");
   $("#operations-table").classList.remove("is-hidden");
   addNewOperation();
@@ -37,9 +36,13 @@ const loadSelectOptions =  () => {
   const { categories } = getStorage();
   let selectCategoriesFilter = document.getElementById("selectCategories");
   let selectCategoriesOperation = document.getElementById("new-op-category");
+    let selectCategoriesEditOperation = document.getElementById("editOpCategory");
+
   for (let category of categories) {
     let categoryOptionsFilter = document.createElement("option");
     let categoryOptionsOperation = document.createElement("option");
+      let categoryOptionsEditOperation = document.createElement("option");
+
 
     categoryOptionsFilter.value = category.name;
     categoryOptionsFilter.innerText = category.name;
@@ -48,14 +51,22 @@ const loadSelectOptions =  () => {
     categoryOptionsOperation.value = category.name;
     categoryOptionsOperation.innerText = category.name;
     categoryOptionsOperation.style.textTransform = "uppercase";
+    
+    categoryOptionsEditOperation.value = category.name;
+    categoryOptionsEditOperation.innerText = category.name;
+    categoryOptionsEditOperation.style.textTransform = "uppercase";
 
     selectCategoriesFilter.appendChild(categoryOptionsFilter);
     selectCategoriesOperation.appendChild(categoryOptionsOperation);
+      selectCategoriesEditOperation.appendChild(categoryOptionsEditOperation);
+
   }
 };
 loadSelectOptions()
 /*New Operation*/
 const addNewOperation = () => {
+  const data = getStorage();
+
   /*Postear al LocalStorage*/
   let nameOperation = $("#new-op-description").value;
   let amountOperation = $("#new-op-amount").value;
@@ -81,6 +92,75 @@ const addNewOperation = () => {
     loadOperations();
   }
 };
+/************************
+ * Edit Operation
+ ************************/
+const editOperation = (e) => {
+  const data = getStorage();
+
+  const id_operationToEdit = e.target.dataset.id;
+  const operationToEdit = data.operations.find(
+    (x) => x.id === id_operationToEdit
+  );
+  
+  $("#sectionEditarOperacion").classList.remove("is-hidden");
+  $("#sectionInicio").classList.add("is-hidden");
+
+  $("#editOpDescription").value = operationToEdit.name;
+  // $("#editOpDescription").setAttribute("value", name_operationToEdit);
+  $("#editOpDescription").dataset.id = operationToEdit.id;
+
+  $("#editOpAmount").value = operationToEdit.amount;
+  // $("#editOpAmount").setAttribute("value", operationToEdit.amount);
+
+  $("#editOptype").value = operationToEdit.type;
+
+  $("#editOpCategory").value = operationToEdit.category;
+
+  $("#editOpDate").value = operationToEdit.date;
+};
+
+$("#btnSubmitEditOp").addEventListener("click", () => {
+  const data = getStorage();
+
+  const newNameOperation = $("#editOpDescription").value;
+  const newAmountOperation = $("#editOpAmount").value;
+  const newTypeOperation = $("#editOptype").value;
+  const newCategoryOperation = $("#editOpCategory").value;
+  const newDateOperation = $("#editOpDate").value;
+
+  const index = data.operations.findIndex((x) => x.id === $("#editOpDescription").dataset.id);
+
+  data.operations[index].name = newNameOperation;
+  data.operations[index].amount = newAmountOperation;
+  data.operations[index].type = newTypeOperation;
+  data.operations[index].category = newCategoryOperation;
+  data.operations[index].date = newDateOperation;
+
+  updateData(data);
+  loadOperations();
+        console.log(newNameOperation);
+
+  $("#sectionEditarOperacion").classList.add("is-hidden");
+  $("#sectionInicio").classList.remove("is-hidden");
+  
+});
+
+$("#btnCancelEditOp").addEventListener("click", () => {
+   $("#sectionEditarOperacion").classList.add("is-hidden");
+  $("#sectionInicio").classList.remove("is-hidden");
+});
+/************************
+ * Remove Operation
+ ************************/
+const removeOperation = (e) => {
+  const data = getStorage();
+  const id_operationToRemove = e.target.dataset.id;
+  const remainingOperations = data.operations.filter(operation => operation.id !== id_operationToRemove);
+  updateData({...data, operations: remainingOperations });
+  loadOperations();
+  console.log({remainingOperations: remainingOperations});
+}; 
 
 const loadOperations = () => {
   const { operations } = getStorage();
@@ -108,6 +188,10 @@ const loadOperations = () => {
     btnRemoveTable.setAttribute("id", "btnRemoveOperation");
     btnEditTable.innerText = "Editar";
     btnRemoveTable.innerText = "Eliminar";
+    btnEditTable.addEventListener("click",editOperation);
+    btnRemoveTable.addEventListener("click", removeOperation);
+    btnEditTable.dataset.id = operation.id;
+    btnRemoveTable.dataset.id = operation.id;
     BtnsBoxTable.appendChild(btnEditTable);
     BtnsBoxTable.appendChild(btnRemoveTable);
     
@@ -123,6 +207,8 @@ const loadOperations = () => {
 loadOperations();
 
 const viewOperations = () => {
+  const data = getStorage();
+
   if (data.operations.length > 0) {
     $("#img-new-op-blankbox").classList.add("is-hidden");
     $("#operations-table").classList.remove("is-hidden");
@@ -132,3 +218,4 @@ const viewOperations = () => {
   }
 }
 viewOperations();
+

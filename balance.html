@@ -66,7 +66,7 @@
       </nav>
     </header>
     <!--Box Balances-->
-    <section class="section" id="section_inicio">
+    <section class="section" id="sectionInicio">
       <div class="columns">
         <div class="column">
           <div class="box" id="balance_box">
@@ -281,6 +281,92 @@
                     </button>
                     <button class="button is-success" id="btn-new-op-agregar">
                       Agregar
+                    </button>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Modal EDITAR operación-->
+      <section class="section is-hidden" id="sectionEditarOperacion">
+        <div class="box is-multiline is-8-widescreen is-10-desktop">
+            <div class="columns">
+              <div
+                class="column"
+              >
+                <div class="container">
+                  <h2 class="title is-size-2 has-text-weight-bold">
+                    Editar operación
+                  </h2>
+                  <div class="field mt-6">
+                    <label class="label" for="editOpDescription">Descripción</label>
+                    <div class="control">
+                      <div class="is-fullwidth">
+                        <input
+                          class="input"
+                          type="text"
+                          id="editOpDescription"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label" for="editOpAmount">Monto</label>
+                    <div class="control">
+                      <div class="control">
+                        <div class="is-fullwidth">
+                          <input
+                            class="input"
+                            type="number"
+                            id="editOpAmount"
+                            value="0"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label" for="editOptype">Tipo</label>
+                    <div class="control">
+                      <div class="select is-fullwidth">
+                        <select id="editOptype">
+                            <option value="todos">Todos</option>
+                            <option value="gasto">Gasto</option>
+                            <option value="ganancia">Ganancia</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                    <!---->
+            <div class="field">
+              <label class="label" for="editOpCategory">Categoría</label>
+              <div class="select is-normal is-fullwidth">
+                <select id="editOpCategory">
+                  <option name="todas" value="todas" selected>TODAS</option>
+                </select>              
+              </div>
+            <!---->
+                  <div class="field">
+                    <label class="label" for="editOpDate">Fecha</label>
+                    <div class="control">
+                      <div class="is-fullwidth">
+                        <input class="input" type="date" id="editOpDate" value=""/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="buttons mt-6">
+                    <button
+                      class="button is-light"
+                      id="btnCancelEditOp"
+                    >
+                      Cancelar
+                    </button>
+                    <button class="button is-success" id="btnSubmitEditOp">
+                      Editar
                     </button>
                   </div>
                 </div>
