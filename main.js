@@ -1,4 +1,7 @@
 "use strict";
+function reloadThePage(){
+    window.location.reload();
+} 
 /*BURGER MENU OPTIONS*/
 const toggleBurger = () => {
   let burgerIcon = document.getElementById("burger");

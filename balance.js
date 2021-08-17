@@ -28,7 +28,32 @@ $("#btn-new-op-agregar").addEventListener("click", () => {
  * Get Date
  ************************/
 $("#filtro_fecha").valueAsDate =new Date();
-$("#new-op-date").valueAsDate =new Date();
+$("#new-op-date").valueAsDate = new Date();
+/************************
+ * Balances
+ ************************/
+let balanceGasto = 0;
+let balanceGanancia = 0;
+let balanceTotal = 0;
+$("#negativeAmount").innerHTML = "-" + balanceGasto;
+$("#positiveAmount").innerText = "+" + balanceGanancia;
+$("#totalAmount").innerHTML = balanceTotal;
+const loadBalances = () => {
+      const data = getStorage();
+  for (let operation of data.operations) {
+    if (operation.type == "gasto") {
+      balanceGasto = balanceGasto - Number(operation.amount);
+      $("#negativeAmount").innerHTML = balanceGasto;
+  } else{
+      balanceGanancia = balanceGanancia + Number(operation.amount);
+      $("#positiveAmount").innerHTML = balanceGanancia;
+    }
+      balanceTotal = balanceGanancia+balanceGasto;
+      $("#totalAmount").innerHTML = balanceTotal;
+  }
+}
+loadBalances();
+
 /************************
  * LOADING SELECT OPTIONS
  ************************/
@@ -73,7 +98,7 @@ const addNewOperation = () => {
   let typeOperation = $("#new-op-type").value;
   let categoryOperation = $("#new-op-category").value;
   let dateOperation = $("#new-op-date").value;
-
+  
   if ((nameOperation === "") || (dateOperation === "") || (amountOperation === "")) {
     swalEmpty();
 
@@ -88,6 +113,7 @@ const addNewOperation = () => {
     };
     data.operations.push(newOperation);
     updateData(data);
+    
     swalCreate();
     loadOperations();
   }
@@ -139,7 +165,6 @@ $("#btnSubmitEditOp").addEventListener("click", () => {
 
   updateData(data);
   loadOperations();
-        console.log(newNameOperation);
 
   $("#sectionEditarOperacion").classList.add("is-hidden");
   $("#sectionInicio").classList.remove("is-hidden");
@@ -159,7 +184,6 @@ const removeOperation = (e) => {
   const remainingOperations = data.operations.filter(operation => operation.id !== id_operationToRemove);
   updateData({...data, operations: remainingOperations });
   loadOperations();
-  console.log({remainingOperations: remainingOperations});
 }; 
 
 const loadOperations = () => {
@@ -169,7 +193,7 @@ const loadOperations = () => {
   for (let operation of operations) {
     rowOperation = document.createElement("tr");
     dataRowOpDescription = document.createElement("td");
-    dataRowOpCategory = document.createElement("td"); 
+    dataRowOpCategory = document.createElement("td");
     dataRowOpDate = document.createElement("td");
     dataRowOpAmount = document.createElement("td");
     dataRowOpActions = document.createElement("td");
@@ -177,6 +201,16 @@ const loadOperations = () => {
     dataRowOpCategory.innerText = operation.category;
     dataRowOpDate.innerText = operation.date;
     dataRowOpAmount.innerText = operation.amount;
+    dataRowOpAmount.style.fontWeight = "bold";
+
+    if (operation.type == "gasto") {
+      dataRowOpAmount.innerText = "- " + operation.amount;
+      dataRowOpAmount.style.color = "#f14668";
+    } else {
+      dataRowOpAmount.innerText = "+ " + operation.amount;
+      dataRowOpAmount.style.color = "#48c78e";
+ }
+
     let BtnsBoxTable = document.createElement("div");
     let btnEditTable = document.createElement("button");
     let btnRemoveTable = document.createElement("button");
@@ -188,7 +222,7 @@ const loadOperations = () => {
     btnRemoveTable.setAttribute("id", "btnRemoveOperation");
     btnEditTable.innerText = "Editar";
     btnRemoveTable.innerText = "Eliminar";
-    btnEditTable.addEventListener("click",editOperation);
+    btnEditTable.addEventListener("click", editOperation);
     btnRemoveTable.addEventListener("click", removeOperation);
     btnEditTable.dataset.id = operation.id;
     btnRemoveTable.dataset.id = operation.id;
@@ -216,6 +250,7 @@ const viewOperations = () => {
     $("#img-new-op-blankbox").classList.remove("is-hidden");
     $("#operations-table").classList.add("is-hidden");
   }
+
 }
 viewOperations();
 
