@@ -17,13 +17,7 @@ $("#btn-new-op-cancelar").addEventListener("click", () => {
   $("#section_nueva_operacion").classList.add("is-hidden");
   $("#sectionInicio").classList.remove("is-hidden");
 });
-$("#btn-new-op-agregar").addEventListener("click", () => {
-  $("#section_nueva_operacion").classList.add("is-hidden");
-  $("#sectionInicio").classList.remove("is-hidden");
-  $("#img-new-op-blankbox").classList.add("is-hidden");
-  $("#operations-table").classList.remove("is-hidden");
-  addNewOperation();
-});
+
 /************************
  * Get Date
  ************************/
@@ -118,6 +112,13 @@ const addNewOperation = () => {
     loadOperations();
   }
 };
+$("#btn-new-op-agregar").addEventListener("click", () => {
+  $("#section_nueva_operacion").classList.add("is-hidden");
+  $("#sectionInicio").classList.remove("is-hidden");
+  $("#img-new-op-blankbox").classList.add("is-hidden");
+  $("#operations-table").classList.remove("is-hidden");
+  addNewOperation();
+});
 /************************
  * Edit Operation
  ************************/
