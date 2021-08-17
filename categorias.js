@@ -80,26 +80,6 @@ const createCategories = () => {
 };
 $("#new-categoria-btn").addEventListener("click", createCategories);
 
-/*Edit categories
-document.querySelectorAll(".btnEditCategory").forEach((i) => {
-  i.addEventListener("click", (e) => {
-    const id_categoryToEdit = e.target.dataset.id;
-    const name_categoryToEdit = data.categories.find(
-      (x) => x.id === id_categoryToEdit
-    ).name;
-  });
-});*/
-/*Edit category*/
-const editCategory = () => {
-  /*Se abre el modal*/
-  $("#btnEditCategory").addEventListener("click", () => {
-    $("#sectionEditCategory").classList.remove("is-hidden");
-    $("#sectionCategorias").classList.add("is-hidden");
-    $("#editCategoryForm").value = name_categoryToEdit;
-    $("#editCategoryForm").setAttribute("value", name_categoryToEdit);
-     $("#editCategoryForm").dataset.id = id_categoryToEdit;
-  });
-};
 
 $("#btnSubmitEditCat").addEventListener("click", () => {
   const data = getStorage();
@@ -115,8 +95,3 @@ $("#btnCancelEditCat").addEventListener("click", () => {
   $("#sectionEditCategory").classList.add("is-hidden");
   $("#sectionCategorias").classList.remove("is-hidden");
 });
-  /*$("#btnCancelEditCat").addEventListener("click", () => {
-    $("#sectionEditCategory").classList.add("is-hidden");
-    $("#sectionCategorias").classList.remove("is-hidden");
-  });
-editCategory();*/

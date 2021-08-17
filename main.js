@@ -1,7 +1,5 @@
 "use strict";
-function reloadThePage(){
-    window.location.reload();
-} 
+ 
 /*BURGER MENU OPTIONS*/
 const toggleBurger = () => {
   let burgerIcon = document.getElementById("burger");
@@ -15,7 +13,9 @@ const setFormat = (name) => {
 /*---------------------
       Local Storage
 -----------------------*/
-const categories = [
+
+const getStorage = () => {
+  const categories = [
     "comida",
     "servicios",
     "salidas",
@@ -23,14 +23,11 @@ const categories = [
     "transporte",
     "trabajo",
   ].map((c) => setFormat(c));
-// localStorage.setItem('data', JSON.stringify({
-//   categories,
-//   operations: [],
-// }));
-
-const getStorage = () => {
-  const stg = JSON.parse(localStorage.getItem('data'));
-  return stg;
+  const locStorage = JSON.parse(localStorage.getItem("data")) || {
+    categories,
+    operations: [],
+  };
+  return locStorage;
 };
 const updateData = (data) => {
   console.log(data);
