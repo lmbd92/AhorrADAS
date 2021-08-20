@@ -68,7 +68,7 @@ const createCategories = () => {
     swalDuplicate();
     $("#new-categoria-input").value = "";
   } else if (newCategoryName === "") {
-    swalCatNameEmpty();
+    swalEmpty();
     $("#new-categoria-input").value = "";
   } else {
     data.categories.push(setFormat(newCategoryName));

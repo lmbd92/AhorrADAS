@@ -1,5 +1,5 @@
 "use strict";
- 
+
 /*BURGER MENU OPTIONS*/
 const toggleBurger = () => {
   let burgerIcon = document.getElementById("burger");
@@ -30,7 +30,6 @@ const getStorage = () => {
   return locStorage;
 };
 const updateData = (data) => {
-  console.log(data);
   localStorage.setItem("data", JSON.stringify(data));
 };
 
@@ -53,4 +52,48 @@ const swalEmpty = () => {
 };
 const swalCreate = () => {
   Swal.fire("Bien hecho!", "Transacción ejecutada!", "success");
-};  
+};
+
+/*---------------------
+      Filtros
+-----------------------*/
+const filterByType = (filterType, operations) => {
+  const newOperations = operations.filter(
+    (operation) => operation.type === filterType
+  );
+  console.log({newOperations, filterType, operations});
+  return newOperations;
+};
+
+const filterByCategory = (idCategory, operations) => {
+  return operations.filter((operation) => operation.id === idCategory);
+};
+
+const filterByDate = (date, operations) => {
+  return operations.filter((operation) => {
+    const dateOperation = new Date(operation.fecha);
+    return dateOperation.getTime() >= date.getTime();
+  });
+};
+
+const orderByDate = (order, operations) => {
+  return [...operations].sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return order === "ASC"
+      ? fechaA.getTime() - dateA.getTime()
+      : fechaB.getTime() - dateB.getTime();
+  });
+};
+
+const orderByAmount = (order, operations) => {
+  return [...operations].sort((a, b) => {
+    return order === "ASC" ? a.amount - b.amount : b.amount - a.amount;
+  });
+};
+
+const orderByDescription = (order, operations) => {
+  return [...operations].sort((a, b) => {
+    return order === "ASC" ? a.name < b.name : a.name > b.name;
+  });
+};

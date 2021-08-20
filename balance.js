@@ -21,7 +21,7 @@ $("#btn-new-op-cancelar").addEventListener("click", () => {
 /************************
  * Get Date
  ************************/
-$("#filtro_fecha").valueAsDate =new Date();
+$("#filtro_fecha").valueAsDate = new Date();
 $("#new-op-date").valueAsDate = new Date();
 /************************
  * Balances
@@ -33,35 +33,34 @@ $("#negativeAmount").innerHTML = "-" + balanceGasto;
 $("#positiveAmount").innerText = "+" + balanceGanancia;
 $("#totalAmount").innerHTML = balanceTotal;
 const loadBalances = () => {
-      const data = getStorage();
+  const data = getStorage();
   for (let operation of data.operations) {
     if (operation.type == "gasto") {
       balanceGasto = balanceGasto - Number(operation.amount);
       $("#negativeAmount").innerHTML = balanceGasto;
-  } else{
+    } else {
       balanceGanancia = balanceGanancia + Number(operation.amount);
       $("#positiveAmount").innerHTML = balanceGanancia;
     }
-      balanceTotal = balanceGanancia+balanceGasto;
-      $("#totalAmount").innerHTML = balanceTotal;
+    balanceTotal = balanceGanancia + balanceGasto;
+    $("#totalAmount").innerHTML = balanceTotal;
   }
-}
+};
 loadBalances();
 
 /************************
  * LOADING SELECT OPTIONS
  ************************/
-const loadSelectOptions =  () => {
+const loadSelectOptions = () => {
   const { categories } = getStorage();
   let selectCategoriesFilter = document.getElementById("selectCategories");
   let selectCategoriesOperation = document.getElementById("new-op-category");
-    let selectCategoriesEditOperation = document.getElementById("editOpCategory");
+  let selectCategoriesEditOperation = document.getElementById("editOpCategory");
 
   for (let category of categories) {
     let categoryOptionsFilter = document.createElement("option");
     let categoryOptionsOperation = document.createElement("option");
-      let categoryOptionsEditOperation = document.createElement("option");
-
+    let categoryOptionsEditOperation = document.createElement("option");
 
     categoryOptionsFilter.value = category.name;
     categoryOptionsFilter.innerText = category.name;
@@ -70,18 +69,17 @@ const loadSelectOptions =  () => {
     categoryOptionsOperation.value = category.name;
     categoryOptionsOperation.innerText = category.name;
     categoryOptionsOperation.style.textTransform = "uppercase";
-    
+
     categoryOptionsEditOperation.value = category.name;
     categoryOptionsEditOperation.innerText = category.name;
     categoryOptionsEditOperation.style.textTransform = "uppercase";
 
     selectCategoriesFilter.appendChild(categoryOptionsFilter);
     selectCategoriesOperation.appendChild(categoryOptionsOperation);
-      selectCategoriesEditOperation.appendChild(categoryOptionsEditOperation);
-
+    selectCategoriesEditOperation.appendChild(categoryOptionsEditOperation);
   }
 };
-loadSelectOptions()
+loadSelectOptions();
 /*New Operation*/
 const addNewOperation = () => {
   const data = getStorage();
@@ -92,10 +90,9 @@ const addNewOperation = () => {
   let typeOperation = $("#new-op-type").value;
   let categoryOperation = $("#new-op-category").value;
   let dateOperation = $("#new-op-date").value;
-  
-  if ((nameOperation === "") || (dateOperation === "") || (amountOperation === "")) {
-    swalEmpty();
 
+  if (nameOperation === "" || dateOperation === "" || amountOperation === "") {
+    swalEmpty();
   } else {
     const newOperation = {
       id: uuidv4(),
@@ -107,7 +104,7 @@ const addNewOperation = () => {
     };
     data.operations.push(newOperation);
     updateData(data);
-    
+
     swalCreate();
     loadOperations();
   }
@@ -129,7 +126,7 @@ const editOperation = (e) => {
   const operationToEdit = data.operations.find(
     (x) => x.id === id_operationToEdit
   );
-  
+
   $("#sectionEditarOperacion").classList.remove("is-hidden");
   $("#sectionInicio").classList.add("is-hidden");
 
@@ -156,7 +153,9 @@ $("#btnSubmitEditOp").addEventListener("click", () => {
   const newCategoryOperation = $("#editOpCategory").value;
   const newDateOperation = $("#editOpDate").value;
 
-  const index = data.operations.findIndex((x) => x.id === $("#editOpDescription").dataset.id);
+  const index = data.operations.findIndex(
+    (x) => x.id === $("#editOpDescription").dataset.id
+  );
 
   data.operations[index].name = newNameOperation;
   data.operations[index].amount = newAmountOperation;
@@ -169,11 +168,10 @@ $("#btnSubmitEditOp").addEventListener("click", () => {
 
   $("#sectionEditarOperacion").classList.add("is-hidden");
   $("#sectionInicio").classList.remove("is-hidden");
-  
 });
 
 $("#btnCancelEditOp").addEventListener("click", () => {
-   $("#sectionEditarOperacion").classList.add("is-hidden");
+  $("#sectionEditarOperacion").classList.add("is-hidden");
   $("#sectionInicio").classList.remove("is-hidden");
 });
 /************************
@@ -182,10 +180,12 @@ $("#btnCancelEditOp").addEventListener("click", () => {
 const removeOperation = (e) => {
   const data = getStorage();
   const id_operationToRemove = e.target.dataset.id;
-  const remainingOperations = data.operations.filter(operation => operation.id !== id_operationToRemove);
-  updateData({...data, operations: remainingOperations });
+  const remainingOperations = data.operations.filter(
+    (operation) => operation.id !== id_operationToRemove
+  );
+  updateData({ ...data, operations: remainingOperations });
   loadOperations();
-}; 
+};
 
 const loadOperations = () => {
   const { operations } = getStorage();
@@ -210,13 +210,16 @@ const loadOperations = () => {
     } else {
       dataRowOpAmount.innerText = "+ " + operation.amount;
       dataRowOpAmount.style.color = "#48c78e";
- }
+    }
 
     let BtnsBoxTable = document.createElement("div");
     let btnEditTable = document.createElement("button");
     let btnRemoveTable = document.createElement("button");
-    rowOperation.setAttribute("class", "has-text-centered")
-    BtnsBoxTable.setAttribute("class", "column in-line has-text-centered is-centered");
+    rowOperation.setAttribute("class", "has-text-centered");
+    BtnsBoxTable.setAttribute(
+      "class",
+      "column in-line has-text-centered is-centered"
+    );
     btnEditTable.setAttribute("class", "button is-warning m-1");
     btnEditTable.setAttribute("id", "btnEditOperation");
     btnRemoveTable.setAttribute("class", "button is-danger m-1");
@@ -229,7 +232,7 @@ const loadOperations = () => {
     btnRemoveTable.dataset.id = operation.id;
     BtnsBoxTable.appendChild(btnEditTable);
     BtnsBoxTable.appendChild(btnRemoveTable);
-    
+
     rowOperation.appendChild(dataRowOpDescription);
     rowOperation.appendChild(dataRowOpCategory);
     rowOperation.appendChild(dataRowOpDate);
@@ -238,7 +241,7 @@ const loadOperations = () => {
 
     operationsTableBody.appendChild(rowOperation);
   }
-}
+};
 loadOperations();
 
 const viewOperations = () => {
@@ -251,7 +254,60 @@ const viewOperations = () => {
     $("#img-new-op-blankbox").classList.remove("is-hidden");
     $("#operations-table").classList.add("is-hidden");
   }
-
-}
+};
 viewOperations();
 
+const filterOperations = () => {
+  const data = getStorage();
+  const filterType = $("#filtro_tipo").value;
+  const filterCategory = $("#selectCategories").value;
+  const filterDate = $("#filtro_fecha").value;
+  const filterOrderBy = $("#filtro_ordenar").value;
+
+  console.log({ filterType, filterCategory, filterDate, filterOrderBy });
+
+  let operations = data.operations;
+
+  if (filterType === "todos") {
+    operations = filterByType(filterType, operations);
+  }
+  if (filterCategory === "todas") {
+    operations = filterByCategory(filterCategory, operations);
+  }
+  
+  operations = filterByDate(filterDate, operations);
+
+  switch (filterOrderBy) {
+    case "mas_reciente":
+      operations = orderByDate("DESC", operations);
+      break;
+    case "menos_reciente":
+      operations = orderByDate("ASC", operations);
+      break;
+    case "mayor_monto":
+      operations = orderByAmount("DESC", operations);
+      break;
+    case "menor_monto":
+      operations = orderByAmount("ASC", operations);
+      break;
+    case "a_z":
+      operations = orderByDescription("ASC", operations);
+      break;
+    case "z_a":
+      operations = orderByDescription("DESC", operations);
+      break;
+    default:
+  }
+};
+
+/*---------------------
+      inicializar
+-----------------------*/
+
+const start = () => {
+  $("#filtro_tipo").addEventListener("change", filterOperations);
+  $("#selectCategories").addEventListener("change", filterOperations);
+  $("#filtro_fecha").addEventListener("change", filterOperations);
+  $("#filtro_ordenar").addEventListener("change", filterOperations);
+};
+start();
