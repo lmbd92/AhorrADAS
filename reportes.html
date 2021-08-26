@@ -69,7 +69,61 @@
       <div class="container is-8-widescreen is-10-desktop">
         <div class="box" id="categorias_box">
           <div class="column vcentered">
-            <h2 class="is-size-4 has-text-weight-bold">Reportes</h2>
+            <h2 class="is-size-4 has-text-weight-bold mb-6">Reportes</h2>
+            <div class="container is-hidden" id="reportsContainer">
+            <!--Resumen Table-->
+            <table class="table is-fullwidth mb-4" id="resumenReportTable">
+              <thead>                    
+                <h2 class="is-size-4 has-text-weight-bold mb-4">Resumen</h2>
+                <tr class="has-text-left">
+                  <td class="has-text-weight-bold">Categoria con mayor ganancia</td>  
+                  </tr>
+                  <tr class="has-text-left">
+                    <td class="has-text-weight-bold">Categoria con mayor gasto</td>  
+                  </tr>
+                  <tr class="has-text-left">
+                  <td class="has-text-weight-bold">Categoria con mayor balance</td>  
+                  </tr>
+                  <tr class="has-text-left">
+                  <td class="has-text-weight-bold">Mes con mayor ganancia</td>
+                  </tr>
+                  <tr class="has-text-left">
+                  <td class="has-text-weight-bold">Mes con mayor gasto</td>                 
+                  </tr>
+                </tr>
+              </thead>
+              <tbody id="resumenReportTableBody"></tbody>
+            </table>
+            <!---->
+            <!--Totales por Categoria Table-->
+            <table class="table is-fullwidth mb-4" id="totalXCategTable">
+              <thead>
+                <h2 class="is-size-4 has-text-weight-bold mb-4">Totales por categoria</h2>
+                <tr class="has-text-left">
+                  <td class="has-text-weight-bold">Categoria</td>  
+                  <td class="has-text-weight-bold">Ganancias</td>  
+                  <td class="has-text-weight-bold">Gastos</td>  
+                  <td class="has-text-weight-bold">Balance</td>  
+                </tr>
+              </thead>
+              <tbody id="totalXCategTableBody"></tbody>
+            </table>
+            <!---->
+            <!--Totales por Mes Table-->
+            <table class="table is-fullwidth mb-4" id="totalXMesTable">
+              <h2 class="is-size-4 has-text-weight-bold mb-4">Totales por mes</h2>
+              <thead>
+                <tr class="has-text-left">
+                  <td class="has-text-weight-bold">Mes</td>  
+                  <td class="has-text-weight-bold">Ganancias</td>  
+                  <td class="has-text-weight-bold">Gastos</td>  
+                  <td class="has-text-weight-bold">Balance</td>  
+                </tr>
+              </thead>
+              <tbody id="totalXMesTableBody"></tbody>
+            </table>
+            <!---->
+            </div>
           </div>
         </div>
       </div>
