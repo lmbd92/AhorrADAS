@@ -1,10 +1,8 @@
 const $ = (selector) => document.querySelector(selector)
-/*Tabla Resumen*/
-const createResumenReport = () => {}
 /*Reporte Totales por Categoria*/
 const createCategoryReport = () => {
   const data = getStorage()
-  let reportPerCat = []
+  var reportPerCat = []
   data.operations.forEach((operation) => {
     if (!reportPerCat[operation.category]) {
       reportPerCat[operation.category] = {}
@@ -21,16 +19,16 @@ const loadCategoryReport = () => {
   let categoryTableReport = $('#totalXCategTable')
   const catReportObj = createCategoryReport()
   for (let element in catReportObj) {
-    let catGanancia = 0
-    let catGasto = 0
-    let catBalance = 0
+    var catGanancia = 0
+    var catGasto = 0
+    var catBalance = 0
 
     catGananciaTR = document.createElement('tr')
     categoryTag = document.createElement('td')
     categoryTag.innerText = element
 
     if (catReportObj[element].ganancia) {
-      let catGanancia = catReportObj[element].ganancia
+      var catGanancia = catReportObj[element].ganancia
       catGananciaTD = document.createElement('td')
       catGananciaTD.setAttribute('class', 'is-success')
       catGananciaTD.innerText = Number(catGanancia)
@@ -40,7 +38,7 @@ const loadCategoryReport = () => {
       catGananciaTD.innerText = Number(catGanancia)
     }
     if (catReportObj[element].gasto) {
-      let catGasto = Number(catReportObj[element].gasto)
+      var catGasto = Number(catReportObj[element].gasto)
       catGastoTD = document.createElement('td')
       catGastoTD.setAttribute('class', 'is-danger')
       catGastoTD.innerText = Number(catGasto)
@@ -50,14 +48,14 @@ const loadCategoryReport = () => {
       catGastoTD.innerText = Number(catGasto)
     }
     if (catReportObj) {
-      catBalance = Number(catGanancia) - Number(catGasto)
+      var catBalance = catGanancia - catGasto
       catBalanceTD = document.createElement('td')
       catBalanceTD.setAttribute('class', 'is-warning')
-      catBalanceTD.innerText = Number(catBalance)
+      catBalanceTD.innerText = catBalance
     } else {
       catBalanceTD = document.createElement('td')
       catBalanceTD.setAttribute('class', 'is-warning')
-      catBalanceTD.innerText = Number(catBalance)
+      catBalanceTD.innerText = catBalance
     }
     catGananciaTR.appendChild(categoryTag)
     catGananciaTR.appendChild(catGananciaTD)
@@ -71,7 +69,7 @@ const loadCategoryReport = () => {
 /*Reporte Totales por Mes*/
 const createPerMonthReport = () => {
   const data = getStorage()
-  let reportPerMonth = []
+  var reportPerMonth = []
   data.operations.forEach((operation) => {
     //Get the month from the date
     let opDate = new Date(operation.date)
@@ -111,20 +109,20 @@ const createPerMonthReport = () => {
 const loadMonthlyReport = () => {
   let monthlyTableReport = $('#totalXMesTable')
   const monthlyTableObj = createPerMonthReport()
-  console.log(monthlyTableObj)
+
   for (let Yearelement in monthlyTableObj) {
     for (let monthElement in monthlyTableObj[Yearelement]) {
-      let monthGanancia = 0
-      let monthGasto = 0
-      let monthBalance = 0
+      var monthGanancia = Number(0)
+      var monthGasto = Number(0)
+      var monthBalance = Number(0)
 
       monthGananciaTR = document.createElement('tr')
       monthTag = document.createElement('td')
       monthTag.innerText = monthElement
 
       if (monthlyTableObj[Yearelement][monthElement].ganancia) {
-        let monthGanancia = Number(
-          monthlyTableObj[Yearelement][monthElement].type,
+        var monthGanancia = Number(
+          monthlyTableObj[Yearelement][monthElement].ganancia,
         )
         monthGananciaTD = document.createElement('td')
         monthGananciaTD.setAttribute('class', 'is-success')
@@ -135,7 +133,9 @@ const loadMonthlyReport = () => {
         monthGananciaTD.innerText = Number(monthGanancia)
       }
       if (monthlyTableObj[Yearelement][monthElement].gasto) {
-        let monthGasto = Number(monthlyTableObj[Yearelement][monthElement].type)
+        var monthGasto = Number(
+          monthlyTableObj[Yearelement][monthElement].gasto,
+        )
         monthGastoTD = document.createElement('td')
         monthGastoTD.setAttribute('class', 'is-danger')
         monthGastoTD.innerText = Number(monthGasto)
@@ -144,24 +144,133 @@ const loadMonthlyReport = () => {
         monthGastoTD.setAttribute('class', 'is-danger')
         monthGastoTD.innerText = Number(monthGasto)
       }
-      if (monthlyTableObj[Yearelement][monthElement]) {
-        monthBalance = Number(monthGanancia) - Number(monthGasto)
+      if (
+        monthlyTableObj[Yearelement][monthElement].ganancia ||
+        monthlyTableObj[Yearelement][monthElement].gasto
+      ) {
+        var monthBalance = monthGanancia - monthGasto
+
         monthBalanceTD = document.createElement('td')
-        monthGastoTD.setAttribute('class', 'is-warning')
-        monthGastoTD.innerText = Number(monthBalance)
+        monthBalanceTD.setAttribute('class', 'is-warning')
+        monthBalanceTD.innerText = monthBalance
       } else {
-        monthGastoTD = document.createElement('td')
-        monthGastoTD.setAttribute('class', 'is-warning')
-        monthGastoTD.innerText = Number(monthBalance)
+        monthBalanceTD = document.createElement('td')
+        monthBalanceTD.setAttribute('class', 'is-warning')
+        monthBalanceTD.innerText = monthBalance
       }
       monthGananciaTR.appendChild(monthTag)
       monthGananciaTR.appendChild(monthGananciaTD)
       monthGananciaTR.appendChild(monthGastoTD)
-      monthGananciaTR.appendChild(monthGastoTD)
+      monthGananciaTR.appendChild(monthBalanceTD)
 
       monthlyTableReport.appendChild(monthGananciaTR)
     }
   }
+}
+
+/*Tabla Resumen*/
+const getCatMayorGanancia = () => {
+  const reportPerCatObj = createCategoryReport()
+  var gananciaMayor = 0
+  var catGananciaMayor = ''
+  for (let category in reportPerCatObj) {
+    if (reportPerCatObj[category].ganancia > gananciaMayor) {
+      gananciaMayor = reportPerCatObj[category].ganancia
+      catGananciaMayor = category
+    }
+  }
+  var catGananciaMayorTAG = $('#catMayorGananciaTag')
+  catGananciaMayorTAG.innerText = catGananciaMayor.toUpperCase()
+
+  var valorGananciaMayor = $('#catMayorGananciaValor')
+  valorGananciaMayor.innerText = gananciaMayor
+}
+
+const getCatMayorGasto = () => {
+  const reportPerCatObj = createCategoryReport()
+  var gastoMayor = 0
+  var catGastoMayor = ''
+  for (let category in reportPerCatObj) {
+    if (reportPerCatObj[category].gasto > gastoMayor) {
+      gastoMayor = reportPerCatObj[category].gasto
+      catGastoMayor = category
+    }
+  }
+  var catGastoMayorTAG = $('#catMayorGastoTag')
+  catGastoMayorTAG.innerText = catGastoMayor.toUpperCase()
+
+  var valorGastoMayor = $('#catMayorGastoValor')
+  valorGastoMayor.innerText = gastoMayor
+}
+
+const getCatMayorBalance = () => {
+  const reportPerCatObj = createCategoryReport()
+  var balanceMayor = 0
+  var balanceNuevo = 0
+  var catBalanceMayor = ''
+  for (let category in reportPerCatObj) {
+    var balanceNuevo =
+      reportPerCatObj[category].ganancia - reportPerCatObj[category].gasto
+    //El error es que no ingresa al if xq el valor por default 0 es un indefinido
+    console.log(reportPerCatObj[category].ganancia)
+    if (balanceNuevo > balanceMayor) {
+      console.log('entre')
+      balanceMayor = balanceNuevo
+      catBalanceMayor = category
+      console.log(balanceMayor, catBalanceMayor)
+    }
+  }
+  var catMayorBalanceTag = $('#catMayorBalanceTag')
+  catMayorBalanceTag.innerText = catBalanceMayor.toUpperCase()
+
+  var catMayorBalanceValor = $('#catMayorBalanceValor')
+  catMayorBalanceValor.innerText = balanceMayor
+}
+
+const getMesMayorGanancia = () => {
+  const reportPerMonthObj = createPerMonthReport()
+  var gananciaMayorMonto = 0
+  var gananciaMayorMes = ''
+
+  for (let year in reportPerMonthObj) {
+    for (let month in reportPerMonthObj[year])
+      if (reportPerMonthObj[year][month].ganancia > gananciaMayorMonto) {
+        gananciaMayorMonto = reportPerMonthObj[year][month].ganancia
+        gananciaMayorMes = month
+      }
+  }
+  var mesGananciaMayorTAG = $('#mesGananciaMayorTAG')
+  mesGananciaMayorTAG.innerText = gananciaMayorMes.toUpperCase()
+
+  var valorMesGananciaMayor = $('#valorMesGananciaMayor')
+  valorMesGananciaMayor.innerText = gananciaMayorMonto
+}
+
+const getMesMayorGasto = () => {
+  const reportPerMonthObj = createPerMonthReport()
+  var gastoMayorMonto = 0
+  var gastoMayorMes = ''
+
+  for (let year in reportPerMonthObj) {
+    for (let month in reportPerMonthObj[year])
+      if (reportPerMonthObj[year][month].gasto > gastoMayorMonto) {
+        gastoMayorMonto = reportPerMonthObj[year][month].gasto
+        gastoMayorMes = month
+      }
+  }
+  var mesGastoMayorTAG = $('#mesGastoMayorTAG')
+  mesGastoMayorTAG.innerText = gastoMayorMes.toUpperCase()
+
+  var valorMesGastoMayor = $('#valorMesGastoMayor')
+  valorMesGastoMayor.innerText = gastoMayorMonto
+}
+
+const loadResumenReport = () => {
+  getCatMayorGanancia()
+  getCatMayorGasto()
+  getCatMayorBalance()
+  getMesMayorGanancia()
+  getMesMayorGasto()
 }
 
 const generateReports = () => {
@@ -169,7 +278,7 @@ const generateReports = () => {
 
   if (data.operations.length >= 2) {
     $('#reportsContainer').classList.remove('is-hidden')
-    //createResumenReport()
+    loadResumenReport()
     loadCategoryReport()
     loadMonthlyReport()
   }
