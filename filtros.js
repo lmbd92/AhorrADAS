@@ -56,8 +56,6 @@ const orderBy = () => {
   let operationsGeneral = data.operations;
   const filterOrderBy = $("#filtro_ordenar").value;
 
-  console.log({ filterOrderBy });
-
   switch (filterOrderBy) {
     case "mas_reciente":
       operationsGeneral.sort((a, b) => {

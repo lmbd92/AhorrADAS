@@ -10,7 +10,6 @@ const createCategoryReport = () => {
         gasto: 0,
       }
     }
-    console.log(reportPerCat[operation.category][operation.type])
     if (!reportPerCat[operation.category][operation.type]) {
       reportPerCat[operation.category][operation.type] = 0
     }
@@ -18,8 +17,6 @@ const createCategoryReport = () => {
 
     return reportPerCat
   })
-
-  console.log({ reportPerCat })
 
   return reportPerCat
 }
