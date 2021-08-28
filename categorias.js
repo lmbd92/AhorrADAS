@@ -67,11 +67,11 @@ const createCategories = () => {
   const data = getStorage()
   const newCategoryName = slugify($('#new-categoria-input').value)
   if (data.categories.find((d) => d.name === newCategoryName)) {
-    swalDuplicate()
-    $('#new-categoria-input').value = ''
-  } else if (newCategoryName === '') {
-    swalEmpty()
-    $('#new-categoria-input').value = ''
+    swalDuplicate();
+    $("#new-categoria-input").value = "";
+  } else if (newCategoryName === "") {
+    swalEmpty();
+    $("#new-categoria-input").value = "";
   } else {
     data.categories.push(setFormat(newCategoryName))
     updateData(data)
