@@ -23,6 +23,19 @@ const filterByType = () => {
   loadOperations(operationsGeneral)
 }
 
+const filterByCategory = ()=>{
+  const data = getStorage()
+  let operationsGeneral = data.operations
+  const filterCategory = $('#selectCategories').value
+
+  operationsGeneral = operationsGeneral.filter(
+    (operationsGeneral) => operationsGeneral.category === filterCategory,
+  )
+
+  loadOperations(operationsGeneral)
+
+}
+
 /*---------------------
       inicializar
 -----------------------*/
@@ -30,7 +43,7 @@ const filterByType = () => {
 const start = () => {
   $('#filtro_tipo').addEventListener('change', filterByType)
 
-  // $("#selectCategories").addEventListener("change", filterOperations);
+  $("#selectCategories").addEventListener("change", filterByCategory);
   // $("#filtro_fecha").addEventListener("change", filterOperations);
   // $("#filtro_ordenar").addEventListener("change", filterOperations);
 }
