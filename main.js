@@ -1,4 +1,5 @@
 "use strict";
+ 
 /*BURGER MENU OPTIONS*/
 const toggleBurger = () => {
   let burgerIcon = document.getElementById("burger");
@@ -6,12 +7,13 @@ const toggleBurger = () => {
   burgerIcon.classList.toggle("is-active");
   dropMenu.classList.toggle("is-active");
 };
-const setFormatCat = (name) => {
+const setFormat = (name) => {
   return { id: uuidv4(), name };
 };
 /*---------------------
       Local Storage
 -----------------------*/
+
 const getStorage = () => {
   const categories = [
     "comida",
@@ -20,7 +22,7 @@ const getStorage = () => {
     "educación",
     "transporte",
     "trabajo",
-  ].map((c) => setFormatCat(c));
+  ].map((c) => setFormat(c));
   const locStorage = JSON.parse(localStorage.getItem("data")) || {
     categories,
     operations: [],
@@ -28,6 +30,7 @@ const getStorage = () => {
   return locStorage;
 };
 const updateData = (data) => {
+  console.log(data);
   localStorage.setItem("data", JSON.stringify(data));
 };
 
