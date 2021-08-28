@@ -8,6 +8,14 @@ $('#btn-ocultar-filtros').addEventListener('click', () => {
     $('#btn-ocultar-filtros').textContent = 'Ocultar filtros'
   }
 })
+
+$('#btn-limpiar-filtros').addEventListener('click', () => {
+  const data = getStorage()
+  const { operations } = data
+  loadOperations(operations)
+})
+
+
 $('#btn-Nueva-Op').addEventListener('click', () => {
   $('#section_nueva_operacion').classList.remove('is-hidden')
   $('#sectionInicio').classList.add('is-hidden')
