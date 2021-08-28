@@ -5,30 +5,38 @@ const createCategoryReport = () => {
   var reportPerCat = []
   data.operations.forEach((operation) => {
     if (!reportPerCat[operation.category]) {
-      reportPerCat[operation.category] = {}
+      reportPerCat[operation.category] = {
+        ganancia: 0,
+        gasto: 0,
+      }
     }
+    console.log(reportPerCat[operation.category][operation.type])
     if (!reportPerCat[operation.category][operation.type]) {
       reportPerCat[operation.category][operation.type] = 0
     }
     reportPerCat[operation.category][operation.type] += Number(operation.amount)
+
     return reportPerCat
   })
+
+  console.log({ reportPerCat })
+
   return reportPerCat
 }
 const loadCategoryReport = () => {
   let categoryTableReport = $('#totalXCategTable')
   const catReportObj = createCategoryReport()
   for (let element in catReportObj) {
-    var catGanancia = 0
-    var catGasto = 0
-    var catBalance = 0
+    let catGanancia = 0
+    let catGasto = 0
+    let catBalance = 0
 
     catGananciaTR = document.createElement('tr')
     categoryTag = document.createElement('td')
     categoryTag.innerText = element
 
     if (catReportObj[element].ganancia) {
-      var catGanancia = catReportObj[element].ganancia
+      catGanancia = catReportObj[element].ganancia
       catGananciaTD = document.createElement('td')
       catGananciaTD.setAttribute('class', 'is-success')
       catGananciaTD.innerText = Number(catGanancia)
@@ -38,7 +46,7 @@ const loadCategoryReport = () => {
       catGananciaTD.innerText = Number(catGanancia)
     }
     if (catReportObj[element].gasto) {
-      var catGasto = Number(catReportObj[element].gasto)
+      catGasto = Number(catReportObj[element].gasto)
       catGastoTD = document.createElement('td')
       catGastoTD.setAttribute('class', 'is-danger')
       catGastoTD.innerText = Number(catGasto)
@@ -48,7 +56,7 @@ const loadCategoryReport = () => {
       catGastoTD.innerText = Number(catGasto)
     }
     if (catReportObj) {
-      var catBalance = catGanancia - catGasto
+      catBalance = catGanancia - catGasto
       catBalanceTD = document.createElement('td')
       catBalanceTD.setAttribute('class', 'is-warning')
       catBalanceTD.innerText = catBalance
@@ -112,9 +120,9 @@ const loadMonthlyReport = () => {
 
   for (let Yearelement in monthlyTableObj) {
     for (let monthElement in monthlyTableObj[Yearelement]) {
-      var monthGanancia = Number(0)
-      var monthGasto = Number(0)
-      var monthBalance = Number(0)
+      var monthGanancia = 0
+      var monthGasto = 0
+      var monthBalance = 0
 
       monthGananciaTR = document.createElement('tr')
       monthTag = document.createElement('td')
@@ -208,16 +216,15 @@ const getCatMayorBalance = () => {
   var balanceMayor = 0
   var balanceNuevo = 0
   var catBalanceMayor = ''
+
   for (let category in reportPerCatObj) {
-    var balanceNuevo =
-      reportPerCatObj[category].ganancia - reportPerCatObj[category].gasto
-    //El error es que no ingresa al if xq el valor por default 0 es un indefinido
-    console.log(reportPerCatObj[category].ganancia)
-    if (balanceNuevo > balanceMayor) {
-      console.log('entre')
+    balanceNuevo =
+      Number(reportPerCatObj[category].ganancia) -
+      Number(reportPerCatObj[category].gasto)
+
+    if (balanceNuevo >= balanceMayor) {
       balanceMayor = balanceNuevo
       catBalanceMayor = category
-      console.log(balanceMayor, catBalanceMayor)
     }
   }
   var catMayorBalanceTag = $('#catMayorBalanceTag')
