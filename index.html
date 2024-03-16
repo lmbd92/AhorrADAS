@@ -1,134 +1,108 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script
-      src="https://kit.fontawesome.com/46da04e41b.js"
-      crossorigin="anonymous"
-    ></script>
-       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
-    <title>AhorrADAS</title>
-  </head>
-  <body>
-    <header>
-      <nav
-        class="navbar has-shadow is-spaced is-dark"
-        role="navigation"
-        aria-label="main navigation"
-      >
-        <div class="navbar-brand">
-          <a class="navbar-item" href="./index.html">
-            <h1 class="title has-text-white">
-              <i class="fas fa-wallet mr-2" aria-hidden="true"></i>
-              AhorrADAS
-            </h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://kit.fontawesome.com/46da04e41b.js" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+  <title>FinanzasPRO</title>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar has-shadow is-spaced is-dark" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="./index.html">
+          <h1 class="title has-text-white">
+            <i class="fas fa-wallet mr-2" aria-hidden="true"></i>
+            FinanzasPRO
+          </h1>
+        </a>
+        <div class="navbar-burger burger" aria-label="menu" aria-expanded="false" id="burger" onclick="toggleBurger()">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </div>
+      </div>
+      <!--Burger menu options-->
+      <div id="teamList" class="navbar-menu">
+        <div class="navbar-dropdown">
+          <a class="navbar-item " href="./index.html">Balance</a>
+          <a class="navbar-item " href="./categorias.html">Categorías</a>
+          <a class="navbar-item " href="./reportes.html">Reportes</a>
+        </div>
+      </div>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <!-- navbar items -->
+          <a href="./index.html" class="navbar-item" id="balance"><i class="fas fa-chart-line mr-2"></i> Balance
           </a>
-          <div
-            class="navbar-burger burger"
-            aria-label="menu"
-            aria-expanded="false" id="burger" onclick="toggleBurger()"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </div>
-          </div>
-          <!--Burger menu options-->
-          <div id="teamList" class="navbar-menu">
-            <div class="navbar-dropdown">
-              <a class="navbar-item " href="./index.html">Balance</a>
-               <a class="navbar-item " href="./categorias.html">Categorías</a>
-                <a class="navbar-item " href="./reportes.html">Reportes</a>
-            </div>
-          </div>
+          <a href="./categorias.html" class="navbar-item" id="categorias"><i class="fas fa-tag mr-2"></i> Categorías
+          </a>
+          <a href="./reportes.html" class="navbar-item" id="reportes"><i class="fas fa-chart-pie mr-2"></i> Reportes
+          </a>
         </div>
-        <div class="navbar-menu">
-          <div class="navbar-end">
-            <!-- navbar items -->
-            <a href="./index.html" class="navbar-item" id="balance"
-              ><i class="fas fa-chart-line mr-2"></i> Balance
-            </a>
-            <a href="./categorias.html" class="navbar-item" id="categorias"
-              ><i class="fas fa-tag mr-2"></i> Categorías
-            </a>
-            <a href="./reportes.html" class="navbar-item" id="reportes"
-              ><i class="fas fa-chart-pie mr-2"></i> Reportes
-            </a>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <!--Box Balances-->
-    <section class="section" id="sectionInicio">
-      <div class="columns">
-        <div class="column">
-          <div class="box" id="balance_box">
-            <h2 class="subtitle is-size-3 has-text-weight-bold">Balance</h2>
-            <div class="columns is-mobile is-centered is-inline">
-              <div
-                class="columns is-mobile is-multiline is-vcentered is-fullwidth"
-              >
-                <div class="column is-narrow is-size-5 is-half">Ganancias</div>
-                <div class="column is-narrow is-half">
-                  <p
-                    class="
+      </div>
+    </nav>
+  </header>
+  <!--Box Balances-->
+  <section class="section" id="sectionInicio">
+    <div class="columns">
+      <div class="column">
+        <div class="box" id="balance_box">
+          <h2 class="subtitle is-size-3 has-text-weight-bold">Balance</h2>
+          <div class="columns is-mobile is-centered is-inline">
+            <div class="columns is-mobile is-multiline is-vcentered is-fullwidth">
+              <div class="column is-narrow is-size-5 is-half">Ganancias</div>
+              <div class="column is-narrow is-half">
+                <p class="
                       bd-notification
                       is-primary
                       has-text-success has-text-right
-                    "
-                  >
-                    $<span id="positiveAmount"></span>
-                  </p>
-                </div>
+                    ">
+                  $<span id="positiveAmount"></span>
+                </p>
               </div>
-              <div
-                class="columns is-mobile is-multiline is-vcentered is-fullwidth"
-              >
-                <div class="column is-narrow is-size-5 is-half">Gastos</div>
-                <div class="column is-narrow is-half">
-                  <p
-                    class="
+            </div>
+            <div class="columns is-mobile is-multiline is-vcentered is-fullwidth">
+              <div class="column is-narrow is-size-5 is-half">Gastos</div>
+              <div class="column is-narrow is-half">
+                <p class="
                       bd-notification
                       is-primary
                       has-text-danger has-text-right
-                    "
-                  >
-                    $<span id="negativeAmount"></span>
-                  </p>
-                </div>
+                    ">
+                  $<span id="negativeAmount"></span>
+                </p>
               </div>
-              <div
-                class="columns is-mobile is-multiline is-vcentered is-fullwidth"
-              >
-                <div class="column is-narrow is-size-4 is-half">Total</div>
-                <div class="column is-narrow has-text-right is-half">
-                  <p class="bd-notification is-primary has-text-weight-bold">
-                    $<span id="totalAmount"></span>
-                  </p>
-                </div>
+            </div>
+            <div class="columns is-mobile is-multiline is-vcentered is-fullwidth">
+              <div class="column is-narrow is-size-4 is-half">Total</div>
+              <div class="column is-narrow has-text-right is-half">
+                <p class="bd-notification is-primary has-text-weight-bold">
+                  $<span id="totalAmount"></span>
+                </p>
               </div>
             </div>
           </div>
-          <!--Box Filtros-->
-          <div class="box" id="filtros_box">
-            <!---->
-            <div class="columns is-mobile is-vcentered">
-              <div class="column">
-                <h3 class="is-size-4 has-text-weight-bold">Filtros</h3>
-              </div>
-              <div class="column has-text-right">
-                <button  id="btn-ocultar-filtros" class="button is-ghost">Ocultar filtros</button>
-              </div>
+        </div>
+        <!--Box Filtros-->
+        <div class="box" id="filtros_box">
+          <!---->
+          <div class="columns is-mobile is-vcentered">
+            <div class="column">
+              <h3 class="is-size-4 has-text-weight-bold">Filtros</h3>
             </div>
-            <!---->
-            <div id="filtros-opciones">
+            <div class="column has-text-right">
+              <button id="btn-ocultar-filtros" class="button is-ghost">Ocultar filtros</button>
+            </div>
+          </div>
+          <!---->
+          <div id="filtros-opciones">
             <div class="field">
               <label class="label" for="filtro_tipo">Tipo</label>
               <div class="select is-normal is-fullwidth">
@@ -141,7 +115,7 @@
               </div>
             </div>
             <!---->
-             <div class="field">
+            <div class="field">
               <label class="label" for="selectCategories">Categoría</label>
               <div class="select is-normal is-fullwidth">
                 <select id="selectCategories">
@@ -172,220 +146,188 @@
                 </select>
               </div>
             </div>
-            <button  id="btn-limpiar-filtros" class="button is-ghost">Limpiar filtros</button>
+            <button id="btn-limpiar-filtros" class="button is-ghost">Limpiar filtros</button>
           </div>
-          </div>
-        </div>
-        <!---->
-        <div class="column is-7-widescreen is-8-desktop">
-          <div class="box" id="operacion_box">
-            <div class="columns is-mobile is-vcentered">
-              <div class="column">
-                <h3 class="is-size-4 has-text-weight-bold">Operaciones</h3>
-              </div>
-              <div class="column has-text-right" id="btn-Nueva-Op">
-                <button class="button is-success">+ Nueva Operacion</button>
-              </div>
-            </div>
-            <div class="column vcentered">
-              <img
-                id="img-new-op-blankbox"
-                src="./styles/imgs/undraw_Credit_card_payments_re_qboh.png"
-              />
-            </div>
-            <!--Operations Table-->
-            <table class="table is-hidden is-fullwidth" id="operations-table">
-              <thead>
-                <tr class="has-text-centered">
-                  <th><abbr title="table-name">Descripción</abbr></th>
-                  <th><abbr title="table-category">Categoria</abbr></th>
-                  <th><abbr title="table-dat">Fecha</abbr></th>
-                  <th><abbr title="table-amount">Monto</abbr></th>
-                  <th><abbr title="table-actions">Acciones</abbr></th>
-                </tr>
-              </thead>
-              <tbody id="operations-table-body"></tbody>
-            </table>
         </div>
       </div>
-    </section>
-    <!--Modal Nueva operación-->
-      <section class="section is-hidden" id="section_nueva_operacion">
-        <div class="box is-multiline is-8-widescreen is-10-desktop">
-            <div class="columns">
-              <div
-                class="column"
-              >
-                <div class="container">
-                  <h2 class="title is-size-2 has-text-weight-bold">
-                    Nueva operación
-                  </h2>
-                  <div class="field mt-6">
-                    <label class="label" for="new-op-description">Descripción</label>
-                    <div class="control">
-                      <div class="is-fullwidth">
-                        <input
-                          class="input"
-                          type="text"
-                          id="new-op-description"
-                        />
-                      </div>
-                    </div>
+      <!---->
+      <div class="column is-7-widescreen is-8-desktop">
+        <div class="box" id="operacion_box">
+          <div class="columns is-mobile is-vcentered">
+            <div class="column">
+              <h3 class="is-size-4 has-text-weight-bold">Operaciones</h3>
+            </div>
+            <div class="column has-text-right" id="btn-Nueva-Op">
+              <button class="button is-success">+ Nueva Operacion</button>
+            </div>
+          </div>
+          <div class="column vcentered">
+            <img id="img-new-op-blankbox" src="./styles/imgs/undraw_Credit_card_payments_re_qboh.png" />
+          </div>
+          <!--Operations Table-->
+          <table class="table is-hidden is-fullwidth" id="operations-table">
+            <thead>
+              <tr class="has-text-centered">
+                <th><abbr title="table-name">Descripción</abbr></th>
+                <th><abbr title="table-category">Categoria</abbr></th>
+                <th><abbr title="table-dat">Fecha</abbr></th>
+                <th><abbr title="table-amount">Monto</abbr></th>
+                <th><abbr title="table-actions">Acciones</abbr></th>
+              </tr>
+            </thead>
+            <tbody id="operations-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+  </section>
+  <!--Modal Nueva operación-->
+  <section class="section is-hidden" id="section_nueva_operacion">
+    <div class="box is-multiline is-8-widescreen is-10-desktop">
+      <div class="columns">
+        <div class="column">
+          <div class="container">
+            <h2 class="title is-size-2 has-text-weight-bold">
+              Nueva operación
+            </h2>
+            <div class="field mt-6">
+              <label class="label" for="new-op-description">Descripción</label>
+              <div class="control">
+                <div class="is-fullwidth">
+                  <input class="input" type="text" id="new-op-description" />
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="new-op-amount">Monto</label>
+              <div class="control">
+                <div class="control">
+                  <div class="is-fullwidth">
+                    <input class="input" type="number" id="new-op-amount" value="0" min="0" />
                   </div>
-                  <div class="field">
-                    <label class="label" for="new-op-amount">Monto</label>
-                    <div class="control">
-                      <div class="control">
-                        <div class="is-fullwidth">
-                          <input
-                            class="input"
-                            type="number"
-                            id="new-op-amount"
-                            value="0"
-                            min="0"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label" for="new-op-type">Tipo</label>
-                    <div class="control">
-                      <div class="select is-fullwidth">
-                        <select id="new-op-type">
-                            <option value="gasto">Gasto</option>
-                            <option value="ganancia">Ganancia</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                    <!---->
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="new-op-type">Tipo</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="new-op-type">
+                    <option value="gasto">Gasto</option>
+                    <option value="ganancia">Ganancia</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!---->
             <div class="field">
               <label class="label" for="new-op-category">Categoría</label>
               <div class="select is-normal is-fullwidth">
                 <select id="new-op-category">
                   <option name="todas" value="todas" selected>TODAS</option>
-                </select>              
+                </select>
               </div>
-            <!---->
-                  <div class="field">
-                    <label class="label" for="new-op-date">Fecha</label>
-                    <div class="control">
-                      <div class="is-fullwidth">
-                        <input class="input" type="date" id="new-op-date" value=""/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="buttons mt-6">
-                    <button
-                      class="button is-light"
-                      id="btn-new-op-cancelar"
-                    >
-                      Cancelar
-                    </button>
-                    <button class="button is-success" id="btn-new-op-agregar">
-                      Agregar
-                    </button>
+              <!---->
+              <div class="field">
+                <label class="label" for="new-op-date">Fecha</label>
+                <div class="control">
+                  <div class="is-fullwidth">
+                    <input class="input" type="date" id="new-op-date" value="" />
                   </div>
                 </div>
-                </div>
+              </div>
+              <div class="buttons mt-6">
+                <button class="button is-light" id="btn-new-op-cancelar">
+                  Cancelar
+                </button>
+                <button class="button is-success" id="btn-new-op-agregar">
+                  Agregar
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <!--Modal EDITAR operación-->
-      <section class="section is-hidden" id="sectionEditarOperacion">
-        <div class="box is-multiline is-8-widescreen is-10-desktop">
-            <div class="columns">
-              <div
-                class="column"
-              >
-                <div class="container">
-                  <h2 class="title is-size-2 has-text-weight-bold">
-                    Editar operación
-                  </h2>
-                  <div class="field mt-6">
-                    <label class="label" for="editOpDescription">Descripción</label>
-                    <div class="control">
-                      <div class="is-fullwidth">
-                        <input
-                          class="input"
-                          type="text"
-                          id="editOpDescription"
-                        />
-                      </div>
-                    </div>
+    </div>
+    </div>
+    </div>
+  </section>
+  <!--Modal EDITAR operación-->
+  <section class="section is-hidden" id="sectionEditarOperacion">
+    <div class="box is-multiline is-8-widescreen is-10-desktop">
+      <div class="columns">
+        <div class="column">
+          <div class="container">
+            <h2 class="title is-size-2 has-text-weight-bold">
+              Editar operación
+            </h2>
+            <div class="field mt-6">
+              <label class="label" for="editOpDescription">Descripción</label>
+              <div class="control">
+                <div class="is-fullwidth">
+                  <input class="input" type="text" id="editOpDescription" />
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="editOpAmount">Monto</label>
+              <div class="control">
+                <div class="control">
+                  <div class="is-fullwidth">
+                    <input class="input" type="number" id="editOpAmount" value="0" min="0" />
                   </div>
-                  <div class="field">
-                    <label class="label" for="editOpAmount">Monto</label>
-                    <div class="control">
-                      <div class="control">
-                        <div class="is-fullwidth">
-                          <input
-                            class="input"
-                            type="number"
-                            id="editOpAmount"
-                            value="0"
-                            min="0"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label" for="editOptype">Tipo</label>
-                    <div class="control">
-                      <div class="select is-fullwidth">
-                        <select id="editOptype">
-                            <option value="gasto">Gasto</option>
-                            <option value="ganancia">Ganancia</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                    <!---->
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="editOptype">Tipo</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="editOptype">
+                    <option value="gasto">Gasto</option>
+                    <option value="ganancia">Ganancia</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!---->
             <div class="field">
               <label class="label" for="editOpCategory">Categoría</label>
               <div class="select is-normal is-fullwidth">
                 <select id="editOpCategory">
                   <option name="todas" value="todas" selected>TODAS</option>
-                </select>              
+                </select>
               </div>
-            <!---->
-                  <div class="field">
-                    <label class="label" for="editOpDate">Fecha</label>
-                    <div class="control">
-                      <div class="is-fullwidth">
-                        <input class="input" type="date" id="editOpDate" value=""/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="buttons mt-6">
-                    <button
-                      class="button is-light"
-                      id="btnCancelEditOp"
-                    >
-                      Cancelar
-                    </button>
-                    <button class="button is-success" id="btnSubmitEditOp">
-                      Editar
-                    </button>
+              <!---->
+              <div class="field">
+                <label class="label" for="editOpDate">Fecha</label>
+                <div class="control">
+                  <div class="is-fullwidth">
+                    <input class="input" type="date" id="editOpDate" value="" />
                   </div>
                 </div>
-                </div>
+              </div>
+              <div class="buttons mt-6">
+                <button class="button is-light" id="btnCancelEditOp">
+                  Cancelar
+                </button>
+                <button class="button is-success" id="btnSubmitEditOp">
+                  Editar
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
-    <script src="./helpers/helpers.js"></script>
-    <script src="main.js"></script>
-    <script src="filtros.js"></script>
-    <script src="balance.js"></script>
+    </div>
+    </div>
+    </div>
+  </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+  <script src="./helpers/helpers.js"></script>
+  <script src="main.js"></script>
+  <script src="filtros.js"></script>
+  <script src="balance.js"></script>
 
-  </body>
+</body>
+
 </html>

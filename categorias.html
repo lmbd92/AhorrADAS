@@ -1,128 +1,113 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="https://kit.fontawesome.com/46da04e41b.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
-    <title>AhorrADAS - Categorias</title>
-  </head>
-  <body>
-    <header>
-      <nav
-        class="navbar has-shadow is-spaced is-dark"
-        role="navigation"
-        aria-label="main navigation"
-      >
-        <div class="navbar-brand">
-          <a class="navbar-item" href="./index.html">
-            <h1 class="title has-text-white">
-              <i class="fas fa-wallet mr-2" aria-hidden="true"></i>
-              AhorrADAS
-            </h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://kit.fontawesome.com/46da04e41b.js" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+  <title>FinanzasPRO - Categorias</title>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar has-shadow is-spaced is-dark" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="./index.html">
+          <h1 class="title has-text-white">
+            <i class="fas fa-wallet mr-2" aria-hidden="true"></i>
+            FinanzasPRO
+          </h1>
+        </a>
+        <div class="navbar-burger burger" aria-label="menu" aria-expanded="false" id="burger" onclick="toggleBurger()">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </div>
+      </div>
+      <!--Burger menu options-->
+      <div id="teamList" class="navbar-menu">
+        <div class="navbar-dropdown">
+          <a class="navbar-item " href="./index.html">Balance</a>
+          <a class="navbar-item " href="./categorias.html">Categorías</a>
+          <a class="navbar-item " href="./reportes.html">Reportes</a>
+        </div>
+      </div>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <!-- navbar items -->
+          <a href="./index.html" class="navbar-item" id="balance"><i class="fas fa-chart-line mr-2"></i> Balance
           </a>
-          <div
-            class="navbar-burger burger"
-            aria-label="menu"
-            aria-expanded="false" id="burger" onclick="toggleBurger()"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
+          <a href="./categorias.html" class="navbar-item" id="categorias"><i class="fas fa-tag mr-2"></i> Categorías
+          </a>
+          <a href="./reportes.html" class="navbar-item" id="reportes"><i class="fas fa-chart-pie mr-2"></i> Reportes
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <section class="section" id="sectionCategorias">
+    <div class="container is-8-widescreen is-10-desktop">
+      <div class="box" id="categorias_box">
+        <div class="column vcentered">
+          <h2 class="is-size-4 has-text-weight-bold">Categorías</h2>
+        </div>
+        <div class="field">
+          <label class="label mt-6" for="new-categoria-input">Nombre</label>
+          <div class="field is-grouped">
+            <div class="control is-expanded">
+              <input class="input" type="text" name="" id="new-categoria-input" />
+            </div>
+            <div class="control">
+              <button type="submit" class="button is-success" id="new-categoria-btn">
+                Agregar
+              </button>
+            </div>
           </div>
         </div>
-            <!--Burger menu options-->
-          <div id="teamList" class="navbar-menu">
-            <div class="navbar-dropdown">
-              <a class="navbar-item " href="./index.html">Balance</a>
-               <a class="navbar-item " href="./categorias.html">Categorías</a>
-                <a class="navbar-item " href="./reportes.html">Reportes</a>
-            </div>
+        <div class="columns">
+          <div class="column">
+            <ul id="listCategories"></ul>
           </div>
         </div>
-        <div class="navbar-menu">
-          <div class="navbar-end">
-            <!-- navbar items -->
-            <a href="./index.html" class="navbar-item" id="balance"
-              ><i class="fas fa-chart-line mr-2"></i> Balance
-            </a>
-            <a href="./categorias.html" class="navbar-item" id="categorias"
-              ><i class="fas fa-tag mr-2"></i> Categorías
-            </a>
-            <a href="./reportes.html" class="navbar-item" id="reportes"
-              ><i class="fas fa-chart-pie mr-2"></i> Reportes
-            </a>
-          </div>
+
+      </div>
+    </div>
+    </div>
+  </section>
+  <!--Modal Edit Category-->
+  <section class="section is-hidden" id="sectionEditCategory">
+    <div class="container is-8-widescreen is-10-desktop">
+      <div class="box" id="editCategoryBox">
+        <div class="column vcentered">
+          <h2 class="is-size-4 has-text-weight-bold">Editar categoria</h2>
         </div>
-      </nav>
-    </header>
-    <section class="section" id="sectionCategorias">
-      <div class="container is-8-widescreen is-10-desktop">
-          <div class="box" id="categorias_box">
-            <div class="column vcentered">
-              <h2 class="is-size-4 has-text-weight-bold">Categorías</h2>
+        <div class="field">
+          <label class="label mt-6" for="editCategoryInput">Nombre</label>
+          <div class="field is-grouped">
+            <div class="control is-expanded">
+              <input class="input" type="text" name="" id="editCategoryForm" />
             </div>
-            <div class="field">
-              <label class="label mt-6" for="new-categoria-input">Nombre</label>
-              <div class="field is-grouped">
-                <div class="control is-expanded">
-                  <input class="input" type="text" name="" id="new-categoria-input" />
-                </div>
-                <div class="control">
-                  <button type="submit" class="button is-success" id="new-categoria-btn">
-                    Agregar
-                  </button>
-                </div>
-              </div>
+            <div class="control in-line">
+              <button type="submit" class="button is-light" id="btnCancelEditCat">
+                Cancelar
+              </button>
+              <button type="submit" class="button is-success" id="btnSubmitEditCat">
+                Editar
+              </button>
             </div>
-            <div class="columns">
-              <div class="column">
-                <ul id="listCategories"></ul>
-              </div>
-            </div>
-            
           </div>
         </div>
       </div>
-    </section>
-    <!--Modal Edit Category-->
-      <section class="section is-hidden" id="sectionEditCategory">
-        <div class="container is-8-widescreen is-10-desktop">
-          <div class="box" id="editCategoryBox">
-            <div class="column vcentered">
-              <h2 class="is-size-4 has-text-weight-bold">Editar categoria</h2>
-            </div>
-            <div class="field">
-              <label class="label mt-6" for="editCategoryInput">Nombre</label>
-              <div class="field is-grouped">
-                <div class="control is-expanded">
-                  <input class="input" type="text" name="" id="editCategoryForm" />
-                </div>
-                <div class="control in-line">
-                  <button type="submit" class="button is-light" id="btnCancelEditCat">
-                    Cancelar
-                  </button>
-                  <button type="submit" class="button is-success" id="btnSubmitEditCat">
-                    Editar
-                  </button>
-                </div>
-              </div>
-            </div>
-        </div>
-      </div>
-    </section>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
-    <script src="./helpers/helpers.js"></script>
-    <script src="main.js"></script>
-    <script src="categorias.js"></script>
-  </body>
+    </div>
+  </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+  <script src="./helpers/helpers.js"></script>
+  <script src="main.js"></script>
+  <script src="categorias.js"></script>
+</body>
+
 </html>
