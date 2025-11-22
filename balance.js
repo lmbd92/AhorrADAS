@@ -44,6 +44,9 @@ $('#positiveAmount').innerText = '+' + balanceGanancia
 $('#totalAmount').innerHTML = balanceTotal
 const loadBalances = () => {
   const data = getStorage()
+  balanceGasto = 0
+  balanceGanancia = 0
+  balanceTotal = 0
   for (let operation of data.operations) {
     if (operation.type == 'gasto') {
       balanceGasto = balanceGasto - Number(operation.amount)
@@ -116,7 +119,8 @@ const addNewOperation = () => {
     updateData(data)
 
     swalCreate()
-    loadOperations(data)
+    loadOperations(data.operations)
+    loadBalances()
   }
 }
 $('#btn-new-op-agregar').addEventListener('click', () => {
@@ -174,7 +178,8 @@ $('#btnSubmitEditOp').addEventListener('click', () => {
   data.operations[index].date = newDateOperation
 
   updateData(data)
-  loadOperations(data)
+  loadOperations(data.operations)
+  loadBalances()
 
   $('#sectionEditarOperacion').classList.add('is-hidden')
   $('#sectionInicio').classList.remove('is-hidden')
@@ -194,7 +199,8 @@ const removeOperation = (e) => {
     (operation) => operation.id !== id_operationToRemove,
   )
   updateData({ ...data, operations: remainingOperations })
-  loadOperations(data)
+  loadOperations(remainingOperations)
+  loadBalances()
 }
 /************************
  * Load Operation
